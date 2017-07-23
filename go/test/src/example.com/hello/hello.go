@@ -1,11 +1,16 @@
 package main
 
 import (
-	"example.com/stringutil"
-
-	"fmt"
+	// "fmt"
+	"log"
+	"runtime"
 )
 
 func main() {
-	fmt.Printf(stringutil.Reverse("!oG ,olleH"))
+	where()
+}
+
+func where() {
+	_, file, line, _ := runtime.Caller(1)
+	log.Printf("%s:%d", file, line)
 }
