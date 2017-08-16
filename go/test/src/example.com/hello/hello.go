@@ -2,44 +2,29 @@ package main
 
 import (
 	"fmt"
+	"reflect"
 )
 
 func main() {
-	fmt.Println("in main f1", f1())
-	fmt.Println("in main f2", f2())
-	fmt.Println("in main f3", f3())
-}
-
-// 非命名返回值
-func f1() int {
-	var a int
-	defer func(x *int) {
-		*x = 1
-	}(&a)
-	return a
-}
-
-// 命名参数，修改返回值
-func f2() (y int) {
-	var a int
-	defer func(x *int) {
-		*x = 2
-	}(&a)
-	return a
-}
-
-// 命名参数，修改命名参数
-func f3() (y int) {
-	var a int
-	defer func(x *int) {
-		*x = 3
-	}(&y)
-	return a
-}
-
-func f4() (y int) {
-	defer func(x *int) {
-		*x = 4
-	}(&y)
-	return
+	var i int
+	fmt.Println(reflect.TypeOf(i), i) // int 0
+	var f float32
+	fmt.Println(reflect.TypeOf(f), f) // float32 0
+	var b byte
+	fmt.Println(reflect.TypeOf(b), b) // uint8 0
+	var r rune
+	fmt.Println(reflect.TypeOf(r), r) // int32 0
+	var s string
+	fmt.Println(reflect.TypeOf(s), s) // string
+	var arr1 [5]int
+	fmt.Println(reflect.TypeOf(arr1), arr1) // [5]int [0 0 0 0 0]
+	var arr2 = new([5]int)
+	fmt.Println(reflect.TypeOf(arr2), arr2) // *[5]int &[0 0 0 0 0]
+	var arr3 = *arr2
+	arr3[2] = 100
+	fmt.Println(arr2, arr3) // &[0 0 0 0 0] [0 0 100 0 0]
+	var slice []int
+	fmt.Println(reflect.TypeOf(slice), slice) // []int []
+	var fun = func() {}
+	fmt.Println(reflect.TypeOf(fun)) // func()
 }
