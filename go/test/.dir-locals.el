@@ -7,6 +7,7 @@
  (go-mode . ((eval . (let ((gopath (getenv "GOPATH")))
 					   (if (not (string-match-p project-dir gopath))
 						   (progn
+							 ; (make-local-variable 'process-environment)
 							 (setenv "GOPATH" (concat (getenv "GOPATH") ":" project-dir))
 							 (setenv "PATH" (concat (getenv "PATH") ":" (concat project-dir "bin")))))))
 			 ))
