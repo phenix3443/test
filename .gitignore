@@ -1,3 +1,7 @@
 *~
 #*
 *.html
+GPATH
+GRTAGS
+GTAGS
+__pycache__/
