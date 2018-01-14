@@ -8,3 +8,5 @@ GTAGS
 __pycache__/
 bin/
 pkg/
+build/
+install/
