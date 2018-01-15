@@ -11,5 +11,4 @@ pkg/
 build/
 install/
 CMakeFiles/
-*.cmake
 CMakeCache.txt
