@@ -1,7 +1,12 @@
 *~
 #*
 *.html
+*.[oa]
 GPATH
 GRTAGS
 GTAGS
 __pycache__/
+bin/
+pkg/
+build/
+install/
