@@ -1,7 +1,5 @@
 #include <iostream>
 
-int main(int argc, char *argv[])
-{
-		std::cout<<"hello,world"<< std::endl;
-		return 0;
+void say_hello(std::string name) {
+		std::cout<<"hello "<<name << std::endl;
 }
