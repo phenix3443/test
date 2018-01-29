@@ -15,7 +15,6 @@ class QuotesSpider(scrapy.Spider):
                 'tags': quote.css('div.tags a.tag::text').extract(),
             }
         next_page = response.css('li.next a::attr(href)').extract_first()
-        print("response url:", response.url)
-        print("next url:", next_page)
+
         if next_page is not None:
             yield response.follow(next_page, callback=self.parse)

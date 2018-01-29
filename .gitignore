@@ -12,3 +12,4 @@ build/
 install/
 CMakeFiles/
 CMakeCache.txt
+*.jl
