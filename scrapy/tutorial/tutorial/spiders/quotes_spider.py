@@ -5,6 +5,11 @@ from tutorial.items import QuoteItem
 
 class QuotesSpider(scrapy.Spider):
     name = 'quotes'
+    custom_settings = {
+        'ITEM_PIPELINES': {
+            'tutorial.pipelines.CSVPipeline': 400
+        }
+    }
     allowed_domains = ['quotes.toscrape.com']
     start_urls = ['http://quotes.toscrape.com/page/1/']
 
@@ -15,6 +20,6 @@ class QuotesSpider(scrapy.Spider):
             qi["author"] = quote.css('small.author::text').extract_first()
             yield qi
 
-        # next_page = response.css('li.next a::attr(href)').extract_first()
-        # if next_page is not None:
-        #     yield response.follow(next_page, callback=self.parse)
+        next_page = response.css('li.next a::attr(href)').extract_first()
+        if next_page is not None:
+            yield response.follow(next_page, callback=self.parse)
