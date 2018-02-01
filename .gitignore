@@ -13,3 +13,5 @@ install/
 CMakeFiles/
 CMakeCache.txt
 *.jl
+project.egg-info
+scrapy/tutorial/setup.py
