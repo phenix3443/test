@@ -1,0 +1,7 @@
+test_compose:
+  image: test_network
+  command: python3 main.py
+  links:
+    - app
+db:
+  image: redis
