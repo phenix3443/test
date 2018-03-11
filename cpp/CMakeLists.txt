@@ -1,4 +1,7 @@
 cmake_minimum_required(VERSION 3.0)
-project(cpp_test)
+project(cpp_project)
 
-add_executable(hello src/test/test.cpp)
+add_subdirectory(src/test)
+
+set(CPACK_GENERATOR "TGZ")
+include (CPack)
