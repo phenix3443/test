@@ -7,8 +7,8 @@ target_include_directories(person PUBLIC
   $<INSTALL_INTERFACE:include/>
   )
 
-target_compile_options(person
-  PUBLIC -std=c++11
+target_compile_options(person PUBLIC
+  -std=c++11
   )
 
 install(FILES person.hpp DESTINATION include/module_1) # 安装时候，将对外的头文件单独安装，方便其他模块使用 include<module_1/person.hpp> 进行引用
