@@ -4,6 +4,7 @@ add_executable(lang_test
   lang_test.cpp
   io_test.cpp
   control_test.cpp
+  buildin_type_test.cpp
   )
 
 find_package(GTest REQUIRED)
