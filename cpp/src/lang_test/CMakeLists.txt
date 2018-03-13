@@ -1,5 +1,10 @@
 cmake_minimum_required(VERSION 3.0)
 
+add_executable(lang_overview overview.cpp)
+
+target_compile_options(lang_overview PUBLIC
+  -std=c++11)
+
 add_executable(lang_test
   lang_test.cpp
   io_test.cpp
@@ -9,6 +14,7 @@ add_executable(lang_test
 
 find_package(GTest REQUIRED)
 target_link_libraries(lang_test ${GTEST_LIBRARIES} pthread)
+
 
 target_compile_options(lang_test PUBLIC
   -std=c++11)

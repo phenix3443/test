@@ -23,4 +23,7 @@ TEST(BuildinTypeTest, AutoConvert) {
 
         signed char sc = 128;
         EXPECT_EQ(1,sc);
+
+        unsigned u = 10, u2 = 42; // unsigned int
+        EXPECT_EQ(32, u-u2);
 }
