@@ -1,43 +1,45 @@
 // -*- coding:utf-8 -*-
 // author:liushangliang
 // desc: 语言特性整体描述
+
 #include <iostream>
 
-int glocal_var = 0;
+int global_var = 0;
 
 int main(int argc, char *argv[])
 {
         bool b = true;
         void* ptr = nullptr;
 
-        char c = 'a';
-        signed char sc = L'a';
-        unsigned char usc = 'a';
+        char cv = 'a';           // 字符
+        signed char scv = L'a'; // 字面量前缀，char有三种类型
+        unsigned char ucv = 'a'; //
 
-        short s = -1;
-        unsigned short uss = 024;
 
-        int i = -1;
-        unsigned int usi = 0x24;
+        short sv = {-1};        // 列表初始化
+        unsigned short usv = 024; // 八进制
 
-        long l = -1L;
-        unsigned long usl = 24UL;
+        int iv{-1};             // 列表初始化
+        unsigned int uiv = 0x24; // 十六进制
 
-        long long ll = -1LL;
-        unsigned long long ull = -1ULL;
+        long lv(-1L);             // 字面量后缀
+        unsigned long ulv = 24UL; // 字面量后缀
 
-        float f = 0l;
+        long long llv = -1LL;
+        unsigned long long ullv = 1ULL;
+
+        float f;                 // 默认初始化
         double d = 3.14;
         long double ld = 0;
 
-        const char* str = u8"Hello,world";
+        const char* str = u8"Hello,world"; // 字面量前缀
 
         std::cout << "in" " one" "line" << std::endl;
 
         std::cout << "in"
-                "two" "line" << std::endl;
+                "two" "line" << std::endl; // 字符串分行
 
-        std::cout << '\115'  << '\x4d' << '\n';
+        std::cout << '\115'  << '\x4d' << '\n'; // 转义字符
 
         return 0;
 }

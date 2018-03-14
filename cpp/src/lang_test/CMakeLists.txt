@@ -10,6 +10,8 @@ add_executable(lang_test
   io_test.cpp
   control_test.cpp
   buildin_type_test.cpp
+  const_test.cpp
+  var_test.cpp
   )
 
 find_package(GTest REQUIRED)
