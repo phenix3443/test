@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.0)
 
+add_executable(tmp_test tmp_test.cpp)
+
 add_executable(lang_overview overview.cpp)
 
 target_compile_options(lang_overview PUBLIC
@@ -7,11 +9,17 @@ target_compile_options(lang_overview PUBLIC
 
 add_executable(lang_test
   lang_test.cpp
+
   io_test.cpp
   control_test.cpp
-  buildin_type_test.cpp
-  const_test.cpp
+
+  buildin_test.cpp
+  number_test.cpp
   var_test.cpp
+  extern_var.cpp
+  extern_test.cpp
+  const_test.cpp
+
   )
 
 find_package(GTest REQUIRED)

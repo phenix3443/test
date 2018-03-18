@@ -21,5 +21,6 @@ void test()
 }
 
 TEST (VarTest, DefalutInit) {
+        // 变量默认初始值测试
         test();
 }

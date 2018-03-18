@@ -3,6 +3,7 @@
 // desc: const测试
 
 #include "lang_test.hpp"
+#include "const_var.hpp"
 
 TEST (ConstTest, ConstVar) {
         const int var = 10;
@@ -27,4 +28,14 @@ TEST (ConstTest, ConstVar) {
         EXPECT_EQ (&t.var_, ptr2) << "t.var_ 与 ptr2 地址不一致" << std::endl;
         EXPECT_EQ (t.var_, 20) << "t.var_ is " << t.var_ << std::endl;
         EXPECT_EQ (*ptr2, 20) << "ptr2 is " << ptr2 << std::endl;
+}
+
+TEST(ConstTest, ConstHead) {
+        EXPECT_EQ(1, const_var);
+}
+
+TEST(ConstTest, ConstRefer) {
+        double d = 3.214;
+        const int &r = d;
+        std::cout << "&d=" << &d << " &r=" << &r << std::endl;
 }

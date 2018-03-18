@@ -27,3 +27,19 @@ TEST(BuildinTypeTest, AutoConvert) {
         unsigned u = 10, u2 = 42; // unsigned int
         EXPECT_EQ(32, u-u2);
 }
+
+TEST(BuildinTypeTest, ReferTest) {
+        int x = 1;
+        int y = 2;              // 为什么要多声明一个变量呢
+        int &b = x;
+        printf("&x=%x,&y=%x,&b=%x,b=%x\n",&x,&y,&y-1,*(&y-1));
+}
+
+TEST(BuildinTypeTest, TypedefTest) {
+        typedef std::string *pstring;
+        std::string s = "hello,world";
+        const pstring ps = &s;
+        // ps = std::string("change"); // ps类型并不是const string *
+        *ps = "change";             // 而是 string * const
+
+}
