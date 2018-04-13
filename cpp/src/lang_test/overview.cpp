@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
 
         std::vector<int> vi = {1,2,3,4}; // 列表初始化
 
-        auto &beg = begin(vi), &last = end(vi); // 迭代器。
+        auto beg = vi.begin(),  last = vi.end(); // 迭代器。
 
         return 0;
 }

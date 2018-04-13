@@ -19,7 +19,7 @@ add_executable(lang_test
   extern_var.cpp
   extern_test.cpp
   const_test.cpp
-
+  class_test.cpp
   )
 
 find_package(GTest REQUIRED)
