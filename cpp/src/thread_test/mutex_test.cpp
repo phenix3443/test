@@ -9,7 +9,8 @@
 struct Foo
 {
         int count;
-        pthread_mutex_t lock;
+        pthread_mutex_t lock ;
+        Foo():count(0),lock(PTHREAD_MUTEX_INITIALIZER) {}
 };
 
 void* work(void *arg) {
@@ -27,11 +28,6 @@ void* work(void *arg) {
 int main(int argc, char *argv[])
 {
         Foo f;
-        f.count = 0;
-        if(pthread_mutex_init(&(f.lock), NULL)) {
-                std::cout << "mutex init error" << std::endl;
-                return 1;
-        }
 
         std::vector<pthread_t> tids(50);
         for (auto &tid : tids) {
@@ -44,7 +40,7 @@ int main(int argc, char *argv[])
         for (auto &tid : tids) {
                 pthread_join(tid, NULL);
         }
-        pthread_mutex_destroy(&f.lock);
+
         std::cout << f.count << std::endl;
         return 0;
 

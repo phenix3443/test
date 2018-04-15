@@ -8,6 +8,7 @@
 struct Foo
 {
         int count;
+        Foo():count(0) {}
 };
 
 void* work(void *arg) {
@@ -23,7 +24,6 @@ void* work(void *arg) {
 int main(int argc, char *argv[])
 {
         Foo f;
-        f.count = 0;
 
         std::vector<pthread_t> tids(50);
 

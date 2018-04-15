@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.0)
 
 find_package(GTest REQUIRED)
 
-set(targets thread_test thread_cleanup main_thread_dead thread_race mutex_test)
+set(targets thread_test thread_cleanup main_thread_dead thread_race mutex_test rwlock_test cond_test barrier_test)
 
 foreach(t ${targets})
   add_executable(${t} ${t}.cpp)
