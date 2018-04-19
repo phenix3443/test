@@ -20,13 +20,3 @@ public:
 };
 
 // 饿汗模式
-
-// 最佳实现
-class BestSingleton
-{
-public:
-        virtual ~BestSingleton() {}
-
-private:
-        BestSingleton() {}
-};
