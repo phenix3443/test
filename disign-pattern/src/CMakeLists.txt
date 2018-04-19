@@ -2,11 +2,11 @@ cmake_minimum_required(VERSION 3.0)
 
 find_package(GTest REQUIRED)
 
-add_executable(singleton_test singleton_test.cpp)
+add_executable(test_singleton test_singleton.cpp)
 
-target_link_libraries(singleton_test ${GTEST_LIBRARIES} pthread)
+target_link_libraries(test_singleton ${GTEST_LIBRARIES} pthread)
 
-target_compile_options(singleton_test PUBLIC
+target_compile_options(test_singleton PUBLIC
   -std=c++11)
 
-install(TARGETS singleton_test DESTINATION bin)
+install(TARGETS test_singleton DESTINATION bin)
