@@ -16,3 +16,5 @@ CMakeCache.txt
 project.egg-info
 scrapy/tutorial/setup.py
 dot/*.png
+.cquery_cached_index
+*.out
