@@ -1,5 +1,5 @@
 -- -*- coding:utf-8 -*-
 
 str = "aaaaa" ..
-	"bbbb"
+    "bbbb"
 print(str)
