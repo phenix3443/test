@@ -18,3 +18,4 @@ scrapy/tutorial/setup.py
 dot/*.png
 .cquery_cached_index
 *.out
+openresty/openresty-1.*
