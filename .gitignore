@@ -19,3 +19,4 @@ dot/*.png
 .cquery_cached_index
 *.out
 openresty/openresty-1.*
+*.png

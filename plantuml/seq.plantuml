@@ -1,0 +1,5 @@
+@startuml
+title this is a test seq diagram
+Alice->Bob: hello,bob
+Bob->Alice: hello,Alice
+@enduml
