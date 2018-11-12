@@ -19,3 +19,4 @@ dot/*.png
 *.out
 openresty/openresty-1.*
 *.png
+*.lock
