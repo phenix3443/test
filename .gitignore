@@ -20,3 +20,5 @@ dot/*.png
 openresty/openresty-1.*
 *.png
 *.lock
+nginx/html/dlib
+nginx/logs
