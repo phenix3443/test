@@ -1,0 +1,11 @@
+local co  --试试不前置声明会怎么样
+co = coroutine.create(  function()
+        print("before yield status: " .. coroutine.status(co))
+        coroutine.yield()
+        print("after yield: " .. coroutine.status(co))
+end)
+print("before start status: ",coroutine.status(co))
+coroutine.resume(co)
+print("after yeild status: ",coroutine.status(co))
+coroutine.resume(co)
+print("after end status: ",coroutine.status(co))
