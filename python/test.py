@@ -2,21 +2,17 @@
 import multiprocessing as mp
 import os
 import time
+import geoip2.database
 
-
-def f():
-    time.sleep(3)
-    print("f wake up")
 
 
 if __name__ == "__main__":
-    p = mp.Process(target=f, args=())
-    p.start()
-    p.join()
-    print(p.is_alive())
-    print(p.exitcode)
-    print(p.pid)
-    print("main end")
-    # with mp.Pool(processes=mp.cpu_count()) as pool:
-    #     res = [pool.apply_async(f, (i, )) for i in range(4)]
-    #     print([r.get(timeout=1) for r in res])
+    reader = geoip2.database.Reader("/home/lsl/github/test/lua/mmdb/GeoLite2-City.mmdb")
+    # ip = "114.119.117.18"
+    # ip = "173.194.72.139"
+    with open("/home/lsl/ip.txt") as f:
+        for line in f:
+            ip = line.strip()
+            data = reader.city(ip)
+            if data.country.name == "United States":
+                print(ip)
