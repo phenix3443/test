@@ -1,4 +1,7 @@
-all: build-in-funcs build-in-vars
+all: build-in-directives build-in-funcs build-in-vars
+
+build-in-directives:
+	@echo "hello"
 
 build-in-funcs:
 	@echo "build in fucntions:"
