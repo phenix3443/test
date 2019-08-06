@@ -2,8 +2,8 @@
 #include <stdio.h>
 
 void foo(int n) {
-    int vlna[n];
-    printf("vlna size=%lu\n", sizeof(vlna));
+    int vla[n];
+    printf("vlna size=%lu\n", sizeof(vla));
 }
 
 int main(int argc, char *argv[])
