@@ -22,3 +22,4 @@ openresty/openresty-1.*
 *.lock
 nginx/html/dlib
 nginx/logs
+.ccls-cache/
