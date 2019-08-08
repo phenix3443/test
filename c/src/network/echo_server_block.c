@@ -1,11 +1,11 @@
 /* coding:utf-i */
 /* 使用阻塞IO，提供简单的回显服务 */
-/* 这个程序只能只能使用accept接接收一个连接，如果要接收多个连接， */
-/* 可以使用多进程/多线程，需要考虑多进程/多线程对于listenfd和connfd的处理 */
+/* 这个程序只能只能对连接进行串行处理，在当前连接处理完之前，不能接收后续连接 */
 /* 更好的方式是使用IO复用：select、poll、epoll */
 #include <stdio.h>
 #include <assert.h>
 #include <string.h>
+#include <stdbool.h>
 
 #include <sys/socket.h>
 #include <arpa/inet.h>
@@ -14,9 +14,8 @@
 
 int main(int argc, char *argv[])
 {
-
     char* ip = "127.0.0.1";
-    u_int16_t port = 9999;
+    u_int16_t port = 9998;
 
     struct sockaddr_in addr;
     addr.sin_family = AF_INET;
@@ -34,20 +33,32 @@ int main(int argc, char *argv[])
     ret = listen(listenfd, backlog);
     assert(ret == 0);
 
-    int connfd = accept(listenfd, NULL, NULL);
-    assert(connfd > 0);
+    bool server_stop = false;
 
-    const u_int32_t buff_size = 4096;
-    char r_buff[buff_size];
-    memset(r_buff, '\0', buff_size);
+    while(!server_stop) {
+        struct sockaddr_in client_addr;
+        socklen_t client_addr_len = sizeof(client_addr);
+        int connfd = accept(listenfd, (struct sockaddr*)&client_addr, &client_addr_len);
+        assert(connfd > 0);
 
-    while(recv(connfd, (void*)r_buff, buff_size, 0) > 0) {
-        printf("recv: %s", r_buff);
-        ret = send(connfd, r_buff, buff_size, 0);
-        assert(ret > 0);
+        char client_ip[INET_ADDRSTRLEN];
+        inet_ntop(AF_INET, (void*)&client_addr.sin_addr.s_addr, client_ip, INET_ADDRSTRLEN);
+        u_int16_t client_port = ntohs(client_addr.sin_port);
+
+        const u_int32_t buff_size = 4096;
+        char r_buff[buff_size];
+        memset(r_buff, '\0', buff_size);
+
+        ssize_t recv_n = recv(connfd, (void*)r_buff, buff_size, 0);
+        if(recv_n > 0) {
+            printf("%s:%d say: %s", client_ip, client_port, r_buff);
+            ret = send(connfd, r_buff, buff_size, 0);
+            assert(ret > 0);
+        }
+
+        close(connfd);
     }
 
-    close(connfd);
     close(listenfd);
     return 0;
 }
