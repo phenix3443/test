@@ -15,7 +15,7 @@
 int main(int argc, char *argv[])
 {
     char* ip = "127.0.0.1";
-    u_int16_t port = 9998;
+    u_int16_t port = 9999;
 
     struct sockaddr_in addr;
     addr.sin_family = AF_INET;
@@ -26,10 +26,14 @@ int main(int argc, char *argv[])
     int listenfd = socket(AF_INET, SOCK_STREAM, 0);
     assert(listenfd > 0);
 
+    /* 设置socket可以重用，方便测试 */
+    int reuse = 1;
+    setsockopt(listenfd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse));
+
     ret = bind(listenfd, (struct sockaddr*)&addr, sizeof(addr));
     assert(ret == 0);
 
-    int backlog = 10;
+    int backlog = 2;            /* 小于5不生效 */
     ret = listen(listenfd, backlog);
     assert(ret == 0);
 
