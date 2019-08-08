@@ -13,6 +13,30 @@
 
 #include <unistd.h>
 
+void handle_conn(int connfd) {
+    /* 获取客户端IP地址 */
+    struct sockaddr_in client_addr;
+    socklen_t client_addr_len = sizeof(client_addr);
+    int ret = getpeername(connfd, (struct sockaddr*)&client_addr, &client_addr_len);
+    assert(ret == 0);
+
+    char client_ip[INET_ADDRSTRLEN];
+    inet_ntop(AF_INET, (void*)&client_addr.sin_addr.s_addr, client_ip, INET_ADDRSTRLEN);
+    u_int16_t client_port = ntohs(client_addr.sin_port);
+
+    /* 读取数据 */
+    const u_int32_t buff_size = 4096;
+    char r_buff[buff_size];
+    memset(r_buff, '\0', buff_size);
+
+    ssize_t recv_n = recv(connfd, (void*)r_buff, buff_size, 0);
+    if(recv_n > 0) {
+        printf("%s:%d say: %s", client_ip, client_port, r_buff);
+        ret = send(connfd, r_buff, buff_size, 0);
+        assert(ret > 0);
+    }
+}
+
 int main(int argc, char *argv[])
 {
     char* ip = "127.0.0.1";
@@ -90,26 +114,7 @@ int main(int argc, char *argv[])
                     int connfd = connfds[i];
                     if(FD_ISSET(connfd, &r_fds)) {
                         /* 获取客户端IP地址 */
-                        struct sockaddr_in client_addr;
-                        socklen_t client_addr_len = sizeof(client_addr);
-                        ret = getpeername(connfd, (struct sockaddr*)&client_addr, &client_addr_len);
-                        assert(ret == 0);
-
-                        char client_ip[INET_ADDRSTRLEN];
-                        inet_ntop(AF_INET, (void*)&client_addr.sin_addr.s_addr, client_ip, INET_ADDRSTRLEN);
-                        u_int16_t client_port = ntohs(client_addr.sin_port);
-
-                        /* 读取数据 */
-                        const u_int32_t buff_size = 4096;
-                        char r_buff[buff_size];
-                        memset(r_buff, '\0', buff_size);
-
-                        ssize_t recv_n = recv(connfd, (void*)r_buff, buff_size, 0);
-                        if(recv_n > 0) {
-                            printf("%s:%d say: %s", client_ip, client_port, r_buff);
-                            ret = send(connfd, r_buff, buff_size, 0);
-                            assert(ret > 0);
-                        }
+                        handle_conn(connfd);
                         close(connfd);
                         connfds[i] = -1;
                     }
