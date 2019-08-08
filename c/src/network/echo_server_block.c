@@ -1,7 +1,8 @@
 /* coding:utf-i */
 /* 使用阻塞IO，提供简单的回显服务 */
-
-
+/* 这个程序只能只能使用accept接接收一个连接，如果要接收多个连接， */
+/* 可以使用多进程/多线程，需要考虑多进程/多线程对于listenfd和connfd的处理 */
+/* 更好的方式是使用IO复用：select、poll、epoll */
 #include <stdio.h>
 #include <assert.h>
 #include <string.h>
