@@ -10,7 +10,7 @@ add_executable(get_remote_addr_by_accept ${CMAKE_CURRENT_SOURCE_DIR}/get_remote_
 add_executable(get_remote_addr_by_getpeername ${CMAKE_CURRENT_SOURCE_DIR}/get_remote_addr_by_getpeername.c)
 add_executable(echo_server_block ${CMAKE_CURRENT_SOURCE_DIR}/echo_server_block.c)
 add_executable(netinfo_api ${CMAKE_CURRENT_SOURCE_DIR}/netinfo_api.c)
-# add_executable(echo_server_select ${CMAKE_CURRENT_SOURCE_DIR}/echo_server_select.c)
+1add_executable(echo_server_select ${CMAKE_CURRENT_SOURCE_DIR}/echo_server_select.c)
 # add_executable(echo_server_poll ${CMAKE_CURRENT_SOURCE_DIR}/echo_server_poll.c)
 # add_executable(echo_server_epoll ${CMAKE_CURRENT_SOURCE_DIR}/echo_server_epoll.c)
 
