@@ -1,5 +1,7 @@
-#include <stdio.h>
+/* coding:utf-8 */
+/* 测试判断大小端函数 */
 
+#include <stdio.h>
 
 void byte_order() {
     union {

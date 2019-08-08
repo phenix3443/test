@@ -17,14 +17,14 @@ int main(int argc, char *argv[])
     char* ip = "127.0.0.1";
     u_int16_t port = 9999;
 
-    int listenfd = socket(AF_INET, SOCK_STREAM, 0);
-    assert(listenfd > 0);       /* 返回值 0//-1 */
-
     struct sockaddr_in addr;
     addr.sin_family = AF_INET;
     addr.sin_port = htons(port); /* 为什么要进行转换？ */
     int ret = inet_pton(AF_INET, ip, (void*)&addr.sin_addr.s_addr);
     assert(ret == 1); /* 返回值 1/0 */
+
+    int listenfd = socket(AF_INET, SOCK_STREAM, 0);
+    assert(listenfd > 0);       /* 返回值 0//-1 */
 
     ret = bind(listenfd, (struct sockaddr *)&addr, sizeof(addr));
     assert(ret == 0);           /* 返回值 0/-1 */
