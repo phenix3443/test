@@ -8,7 +8,7 @@ int global_var = 0;
 
 int main(int argc, char *argv[])
 {
-        void* ptr = NULL;
+        void * ptr = NULL;
 
         char cv = 'a';
         signed char scv = -1;

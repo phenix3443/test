@@ -16,17 +16,17 @@ struct Foo
         }
 };
 
-void* write(void *arg) {
+void * write(void *arg) {
         Foo *tmp = (Foo*)arg;
         pthread_rwlock_wrlock(&(tmp->lock));
         ++(tmp->count);
         std::cout << "write thread: " << pthread_self() << " after add cout " << tmp->count << std::endl;
         pthread_rwlock_unlock(&(tmp->lock));
 
-        return ((void*)0);
+        return ((void *)0);
 }
 
-void* read(void *arg) {
+void * read(void *arg) {
         Foo *tmp = (Foo*)arg;
         while(true) {
                 pthread_rwlock_rdlock(&(tmp->lock));
@@ -34,7 +34,7 @@ void* read(void *arg) {
                 pthread_rwlock_unlock(&(tmp->lock));
                 usleep(100);    // 减少read时候打印数量
         }
-        return ((void*)0);
+        return ((void *)0);
 }
 
 int main(int argc, char *argv[])
@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
 
         std::vector<pthread_t> rtids(3);
         for (auto & tid : rtids) {
-                if(pthread_create(&tid, NULL, read, (void*)&f)) {
+                if(pthread_create(&tid, NULL, read, (void *)&f)) {
                         std::cout << "thread create error " << std::endl;
                         return 2;
                 }
@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
 
         std::vector<pthread_t> wtids(10);
         for (auto & tid : wtids) {
-                if(pthread_create(&tid, NULL, write, (void*)&f)) {
+                if(pthread_create(&tid, NULL, write, (void *)&f)) {
                         std::cout << "thread create error " << std::endl;
                         return 2;
                 }

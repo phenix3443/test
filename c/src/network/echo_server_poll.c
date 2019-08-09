@@ -12,7 +12,14 @@
 #include <poll.h>
 
 #include <unistd.h>
+#include <fcntl.h>
 
+int setnonblock(int fd) {
+    int old_opt = fcntl(fd, F_GETFD);
+    int new_opt = old_opt | O_NONBLOCK;
+    fcntl(fd, F_SETFD, new_opt);
+    return old_opt;
+}
 
 void handle_conn(int connfd) {
     /* 获取客户端IP地址 */
@@ -22,7 +29,7 @@ void handle_conn(int connfd) {
     assert(ret == 0);
 
     char client_ip[INET_ADDRSTRLEN];
-    inet_ntop(AF_INET, (void*)&client_addr.sin_addr.s_addr, client_ip, INET_ADDRSTRLEN);
+    inet_ntop(AF_INET, (void *)&client_addr.sin_addr.s_addr, client_ip, INET_ADDRSTRLEN);
     u_int16_t client_port = ntohs(client_addr.sin_port);
 
     /* 读取数据 */
@@ -30,7 +37,7 @@ void handle_conn(int connfd) {
     char r_buff[buff_size];
     memset(r_buff, '\0', buff_size);
 
-    ssize_t recv_n = recv(connfd, (void*)r_buff, buff_size, 0);
+    ssize_t recv_n = recv(connfd, (void *)r_buff, buff_size, 0);
     if(recv_n > 0) {
         printf("%s:%d say: %s", client_ip, client_port, r_buff);
         ret = send(connfd, r_buff, buff_size, 0);
@@ -40,13 +47,13 @@ void handle_conn(int connfd) {
 
 int main(int argc, char *argv[])
 {
-    char* ip = "127.0.0.1";
+    char *ip = "127.0.0.1";
     u_int16_t port = 9999;
 
     struct sockaddr_in addr;
     addr.sin_family = AF_INET;
     addr.sin_port = htons(port);
-    int ret = inet_pton(AF_INET, ip, (void*)&addr.sin_addr.s_addr);
+    int ret = inet_pton(AF_INET, ip, (void *)&addr.sin_addr.s_addr);
     assert(ret == 1);
 
     int listenfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -63,8 +70,9 @@ int main(int argc, char *argv[])
     ret = listen(listenfd, backlog);
     assert(ret == 0);
 
-    struct pollfd pollfds[backlog];       /* 用于保存已经连接的套接字 */
-    for(int i=0; i<backlog; ++i) {
+    const int max_events = backlog;
+    struct pollfd pollfds[max_events];       /* 用于保存已经连接的套接字 */
+    for(int i=0; i<max_events; ++i) {
         pollfds[i].fd = -1;
     }
 
@@ -74,7 +82,7 @@ int main(int argc, char *argv[])
     bool server_stop = false;
     while(!server_stop) {
         /* 只监听读取事件 */
-        ret = poll(pollfds, backlog, -1);
+        ret = poll(pollfds, max_events, -1);
         switch(ret) {
         case 0:
             printf("no active sock\n");
@@ -83,24 +91,27 @@ int main(int argc, char *argv[])
             printf("poll failed\n");
             break;
         default:
-            for (int i=0; i<backlog; ++i) {
+            for (int i=0; i<max_events; ++i) {
                 if(pollfds[i].revents & POLLIN) {
-                    if(pollfds[i].fd == listenfd) {
+                    int fd = pollfds[i].fd;
+                    if(fd == listenfd) {
+                        /* 处理监听套接字 */
                         int connfd = accept(listenfd, NULL, NULL);
                         assert(connfd > 0);
                         /* 添加到集合 */
-                        for(int i=0; i < backlog; ++i) {
+                        for(int i=0; i < max_events; ++i) {
                             if(pollfds[i].fd == -1) {
                                 pollfds[i].fd = connfd;
                                 pollfds[i].events = POLLIN;
                                 break;
                             }
                         }
+                        setnonblock(connfd);
                     }
                     else {
-                        int connfd = pollfds[i].fd;
-                        handle_conn(connfd);
-                        close(connfd);
+                        /* 处理连接套接字 */
+                        handle_conn(fd);
+                        close(fd);
                         pollfds[i].fd = -1;
                         pollfds[i].fd = 0;
                     }

@@ -14,13 +14,13 @@
 int main(int argc, char *argv[])
 {
 
-    char* ip = "127.0.0.1";
+    char *ip = "127.0.0.1";
     u_int16_t port = 9999;
 
     struct sockaddr_in addr;
     addr.sin_family = AF_INET;
     addr.sin_port = htons(port); /* 为什么要进行转换？ */
-    int ret = inet_pton(AF_INET, ip, (void*)&addr.sin_addr.s_addr);
+    int ret = inet_pton(AF_INET, ip, (void *)&addr.sin_addr.s_addr);
     assert(ret == 1); /* 返回值 1/0 */
 
     int listenfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
 
     char client_ip[INET_ADDRSTRLEN];
     /* bzero(client_ip, sizeof(client_ip)); */
-    inet_ntop(AF_INET, (void*)&remote_addr.sin_addr, client_ip, INET_ADDRSTRLEN);
+    inet_ntop(AF_INET, (void *)&remote_addr.sin_addr, client_ip, INET_ADDRSTRLEN);
     printf("client ip: %s, client_port: %d\n", client_ip, ntohs(remote_addr.sin_port)); /* client ip: 127.0.0.1, client_port: 45204 */
 
     struct sockaddr_in server_addr;

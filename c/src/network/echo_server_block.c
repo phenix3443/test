@@ -15,13 +15,13 @@
 
 int main(int argc, char *argv[])
 {
-    char* ip = "127.0.0.1";
+    char *ip = "127.0.0.1";
     u_int16_t port = 9999;
 
     struct sockaddr_in addr;
     addr.sin_family = AF_INET;
     addr.sin_port = htons(port);
-    int ret = inet_pton(AF_INET, ip, (void*)&addr.sin_addr.s_addr);
+    int ret = inet_pton(AF_INET, ip, (void *)&addr.sin_addr.s_addr);
     assert(ret == 1);
 
     int listenfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -47,14 +47,14 @@ int main(int argc, char *argv[])
         assert(connfd > 0);
 
         char client_ip[INET_ADDRSTRLEN];
-        inet_ntop(AF_INET, (void*)&client_addr.sin_addr.s_addr, client_ip, INET_ADDRSTRLEN);
+        inet_ntop(AF_INET, (void *)&client_addr.sin_addr.s_addr, client_ip, INET_ADDRSTRLEN);
         u_int16_t client_port = ntohs(client_addr.sin_port);
 
         const u_int32_t buff_size = 4096;
         char r_buff[buff_size];
         memset(r_buff, '\0', buff_size);
 
-        ssize_t recv_n = recv(connfd, (void*)r_buff, buff_size, 0);
+        ssize_t recv_n = recv(connfd, (void *)r_buff, buff_size, 0);
         if(recv_n > 0) {
             printf("%s:%d say: %s", client_ip, client_port, r_buff);
             ret = send(connfd, r_buff, buff_size, 0);

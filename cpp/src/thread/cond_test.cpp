@@ -21,7 +21,7 @@ struct Foo
 };
 
 
-void* consumer(void *arg) {
+void * consumer(void *arg) {
         Foo *tmp = static_cast<Foo*>(arg);
 
         while(true){
@@ -35,10 +35,10 @@ void* consumer(void *arg) {
                 pthread_cond_signal(&tmp->not_full);
         }
 
-        return ((void*)0);
+        return ((void *)0);
 }
 
-void* producer(void *arg) {
+void * producer(void *arg) {
         Foo *tmp = static_cast<Foo*>(arg);
         while(true) {
                 pthread_mutex_lock(&tmp->lock);
@@ -52,7 +52,7 @@ void* producer(void *arg) {
                 pthread_cond_signal(&tmp->not_empty);
         }
 
-        return ((void*)0);
+        return ((void *)0);
 }
 
 int main(int argc, char *argv[])
@@ -61,7 +61,7 @@ int main(int argc, char *argv[])
 
         std::vector<pthread_t> c_tids(5);
         for(auto &tid : c_tids) {
-                if(pthread_create(&tid, NULL, consumer, static_cast<void*>(&f))) {
+                if(pthread_create(&tid, NULL, consumer, static_cast<void *>(&f))) {
                         std::cout << "create thread error" << std::endl;
                         return 1;
                 }
@@ -69,7 +69,7 @@ int main(int argc, char *argv[])
 
         std::vector<pthread_t> p_tids(5);
         for(auto &tid : p_tids) {
-                if(pthread_create(&tid, NULL, producer, static_cast<void*>(&f))) {
+                if(pthread_create(&tid, NULL, producer, static_cast<void *>(&f))) {
                         std::cout << "create thread error" << std::endl;
                         return 1;
                 }

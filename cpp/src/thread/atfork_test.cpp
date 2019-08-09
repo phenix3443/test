@@ -32,7 +32,7 @@ void child(void) {
         }
 }
 
-void* ThreadFunc(void *arg) {
+void * ThreadFunc(void *arg) {
         std::cout << "thread running" << std::endl;
         pause();
         return NULL;
@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
                 std::cout << "pthread_create error" << std::endl;
                 return 2;
         }
-        sleep(2); 					// 让子线程先执行
+        sleep(2);                   // 让子线程先执行
         std::cout << "parent about to forking..." << std::endl;
         pid_t pid = fork();
         if (pid == 0) {

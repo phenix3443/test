@@ -12,10 +12,10 @@ void print_tid(const char *str) {
         std::cout << str << " pid: " << pid << " tid:" << tid << std::endl;
 }
 
-void* work(void *arg) {
+void * work(void *arg) {
         print_tid("new thread:");
         // return ((void *)0);
-        pthread_exit((void*)2);
+        pthread_exit((void *)2);
 }
 
 int main(int argc, char *argv[])

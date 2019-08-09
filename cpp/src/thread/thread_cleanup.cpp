@@ -10,7 +10,7 @@ void cleanup(void *arg) {
         std::cout << "cleanup：" << (char *)arg << std::endl;
 }
 
-void* at_cleanup_pop(void *arg) {
+void * at_cleanup_pop(void *arg) {
         std::cout << "thread " << pthread_self() << " start" << std::endl;
         pthread_cleanup_push(cleanup, const_cast<char*>("toggle in pop with 1"));
         pthread_cleanup_push(cleanup, const_cast<char*>("toggle in pop with 0"));
@@ -18,17 +18,17 @@ void* at_cleanup_pop(void *arg) {
         pthread_cleanup_pop(0);
         pthread_cleanup_pop(1);
 
-        return  ((void*)1);
+        return  ((void *)1);
 }
 
-void* at_pthread_exit(void *arg) {
+void * at_pthread_exit(void *arg) {
         std::cout << "thread " << pthread_self() << " start" << std::endl;
         pthread_cleanup_push(cleanup, const_cast<char*>("toggle in pthread_exit"));
         pthread_exit((void *)2);
         pthread_cleanup_pop(0);
 }
 
-void* at_pthread_cancel(void *arg) {
+void * at_pthread_cancel(void *arg) {
         std::cout << "thread " << pthread_self() << " start" << std::endl;
         pthread_cleanup_push(cleanup, const_cast<char*>("toggle in pthread_cancel"));
         // The cleanup happen asynchronously with respect to the  pthread_can‐cel()  call;
@@ -38,13 +38,13 @@ void* at_pthread_cancel(void *arg) {
         }
 
         pthread_cleanup_pop(0);
-        return ((void*)0);
+        return ((void *)0);
 }
 
-void* at_pthread_return(void *arg) {
+void * at_pthread_return(void *arg) {
         std::cout << "thread " << pthread_self() << " start" << std::endl;
         pthread_cleanup_push(cleanup, const_cast<char*>("toggle in pthread return"));
-        return ((void*)0);
+        return ((void *)0);
         pthread_cleanup_pop(0);
 }
 

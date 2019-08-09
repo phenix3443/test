@@ -4,7 +4,7 @@
 
 void *work(void *arg) {
         while(1){}
-        return (void*)0;
+        return (void *)0;
 }
 
 int main(int argc, char *argv[])

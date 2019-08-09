@@ -11,14 +11,14 @@ struct Foo
         Foo():count(0) {}
 };
 
-void* work(void *arg) {
+void * work(void *arg) {
         Foo *tmp = (Foo*)arg;
         for (int i=0; i < 5; ++i) {
                 ++(tmp->count);
                 usleep(10000);
         }
 
-        return ((void*)0);
+        return ((void *)0);
 }
 
 int main(int argc, char *argv[])
@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
         std::vector<pthread_t> tids(50);
 
         for (auto &tid : tids) {
-                if(pthread_create(&tid, NULL, work, (void*)&f)) {
+                if(pthread_create(&tid, NULL, work, (void *)&f)) {
                         std::cout << "thread create error " << std::endl;
                         return 2;
                 }

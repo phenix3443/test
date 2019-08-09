@@ -18,7 +18,7 @@ static inline void addr_str() {
     }
 
     char dot[INET_ADDRSTRLEN];
-    printf("addr dot: %s\n", inet_ntop(AF_INET, (void*)&addr.s_addr, dot, INET_ADDRSTRLEN));
+    printf("addr dot: %s\n", inet_ntop(AF_INET, (void *)&addr.s_addr, dot, INET_ADDRSTRLEN));
 }
 
 int main(int argc, char *argv[])

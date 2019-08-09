@@ -13,7 +13,7 @@ struct Foo
         Foo():count(0),lock(PTHREAD_MUTEX_INITIALIZER) {}
 };
 
-void* work(void *arg) {
+void * work(void *arg) {
         Foo *tmp = (Foo*)arg;
 
         for(int i=0; i<5; ++i) {
@@ -22,7 +22,7 @@ void* work(void *arg) {
                 usleep(1000);
                 pthread_mutex_unlock(&(tmp->lock));
         }
-        return ((void*)0);
+        return ((void *)0);
 }
 
 int main(int argc, char *argv[])
@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
 
         std::vector<pthread_t> tids(50);
         for (auto &tid : tids) {
-                if(pthread_create(&tid, NULL, work, (void*)&f)) {
+                if(pthread_create(&tid, NULL, work, (void *)&f)) {
                         std::cout << "thread create error " << std::endl;
                         return 2;
                 }

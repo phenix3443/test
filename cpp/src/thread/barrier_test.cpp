@@ -18,7 +18,7 @@ void *first_work(void *arg) {
         if (res == PTHREAD_BARRIER_SERIAL_THREAD) {
                 std::cout << pthread_self() << " all thread done first work!" << std::endl;
         }
-        return ((void*)0);
+        return ((void *)0);
 }
 
 int main(int argc, char *argv[])
@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
         pthread_barrier_init(&b, NULL, thread_num);
         std::vector<pthread_t> tids(thread_num);
         for(auto &tid : tids) {
-                if(pthread_create(&tid, NULL, first_work, (void*)&b)) {
+                if(pthread_create(&tid, NULL, first_work, (void *)&b)) {
                         std::cout << "create thread error" << std::endl;
                         return 1;
                 }
