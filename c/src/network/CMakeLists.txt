@@ -6,7 +6,6 @@ project(network_test
 add_executable(byte_order ${CMAKE_CURRENT_SOURCE_DIR}/endianness.c)
 add_executable(addr_api ${CMAKE_CURRENT_SOURCE_DIR}/addr_api.c)
 add_executable(sock_api ${CMAKE_CURRENT_SOURCE_DIR}/sock_api.c)
-add_executable(get_remote_addr_by_accept ${CMAKE_CURRENT_SOURCE_DIR}/get_remote_addr_by_accept.c)
 add_executable(get_remote_addr_by_getpeername ${CMAKE_CURRENT_SOURCE_DIR}/get_remote_addr_by_getpeername.c)
 add_executable(echo_server_block ${CMAKE_CURRENT_SOURCE_DIR}/echo_server_block.c)
 add_executable(netinfo_api ${CMAKE_CURRENT_SOURCE_DIR}/netinfo_api.c)

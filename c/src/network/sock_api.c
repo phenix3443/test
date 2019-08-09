@@ -10,6 +10,7 @@
 #include <arpa/inet.h>         /* inet_pton */
 
 #include <unistd.h>             /* close */
+#include <string.h>
 
 int main(int argc, char *argv[])
 {
@@ -26,6 +27,10 @@ int main(int argc, char *argv[])
     int listenfd = socket(AF_INET, SOCK_STREAM, 0);
     assert(listenfd > 0);       /* 返回值 0//-1 */
 
+    /* 设置socket可以重用，方便测试 */
+    int reuse = 1;
+    setsockopt(listenfd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse));
+
     ret = bind(listenfd, (struct sockaddr *)&addr, sizeof(addr));
     assert(ret == 0);           /* 返回值 0/-1 */
 
@@ -35,16 +40,24 @@ int main(int argc, char *argv[])
 
     /* get client addr by accept */
     struct sockaddr_in remote_addr;
-    socklen_t remote_addr_len = sizeof(remote_addr);
+    socklen_t remote_addr_len = sizeof(remote_addr); /* 注意这里要初始化remote_add_len */
     int connfd = accept(listenfd, (struct sockaddr*)&remote_addr, &remote_addr_len);
-
-    /* or do not care client addr */
     assert(connfd > 0);
 
     char client_ip[INET_ADDRSTRLEN];
-    /* bzero(client_ip, sizeof(client_ip)); */
     inet_ntop(AF_INET, (void *)&remote_addr.sin_addr, client_ip, INET_ADDRSTRLEN);
-    printf("client ip: %s, client_port: %d\n", client_ip, ntohs(remote_addr.sin_port)); /* client ip: 127.0.0.1, client_port: 45204 */
+    u_int16_t client_port = ntohs(remote_addr.sin_port);
+
+    const u_int32_t buff_size = 4096;
+    char r_buff[buff_size];
+    memset(r_buff, '\0', buff_size);
+
+    ssize_t recv_n = recv(connfd, (void *)r_buff, buff_size, 0);
+    if(recv_n > 0) {
+        printf("%s:%d say: %s", client_ip, client_port, r_buff);
+        ret = send(connfd, r_buff, buff_size, 0);
+        assert(ret > 0);
+    }
 
     close(connfd);
     close(listenfd);
