@@ -5,7 +5,7 @@ project(c_code_test
 
 set(CMAKE_VERBOSE_MAKEFILE on)
 
-add_compile_options("-g -std=c99")
+add_compile_options(-g -std=c99)
 
 add_subdirectory(c99)
 add_subdirectory(lang)

@@ -12,7 +12,3 @@ add_executable(netinfo_api ${CMAKE_CURRENT_SOURCE_DIR}/netinfo_api.c)
 add_executable(echo_server_select ${CMAKE_CURRENT_SOURCE_DIR}/echo_server_select.c)
 add_executable(echo_server_poll ${CMAKE_CURRENT_SOURCE_DIR}/echo_server_poll.c)
 add_executable(echo_server_epoll ${CMAKE_CURRENT_SOURCE_DIR}/echo_server_epoll.c)
-target_compile_options(echo_server_epoll
-  PRIVATE
-  -g
-  )

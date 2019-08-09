@@ -1,6 +1,7 @@
-/* coding:utf-8 */
-#include <stdbool.h>
+/* -*- coding:utf-8 -*- */
+
 #include <stdio.h>
+#include <stdbool.h>
 
 int main(int argc, char *argv[])
 {
