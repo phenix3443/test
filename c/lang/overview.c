@@ -3,13 +3,11 @@
 
 #include <stdio.h>
 
-void say(char *message) {
-    printf("%s", message);
-}
+void say (char *message) { printf ("%s", message); }
 
 char *message = "hello,world!\n";
 
-int main(int argc, char *argv[]) {
-    say(message);
+int main (int argc, char *argv[]) {
+    say (message);
     return 0;
 }
