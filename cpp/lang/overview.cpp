@@ -7,14 +7,20 @@
 
 using namespace std;
 
-void say(string message) {
-    cout << message << endl;
-}
+void say (string message) { cout << message << endl; }
+
+class Pserson {
+  private:
+    string name;
+};
 
 const string message = "hello,world!";
 
-int main(int argc, char *argv[])
-{
-    say(message);
+int main (int argc, char *argv[]) {
+    if (true) {
+    }
+    int a = 1;
+    string bbbb = "hello";
+    say (message);
     return 0;
 }
