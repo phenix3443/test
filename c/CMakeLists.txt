@@ -9,4 +9,5 @@ add_compile_options(-g -std=c99)
 
 add_subdirectory(c99)
 add_subdirectory(lang)
+add_subdirectory(system)
 add_subdirectory(network)
