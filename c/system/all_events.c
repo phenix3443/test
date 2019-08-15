@@ -1,5 +1,5 @@
 /* -*- coding:utf-8;-*- */
-/* sigactionl函数测试 */
+/* 统一事件源测试 */
 
 #include <arpa/inet.h>
 #include <assert.h>
@@ -44,7 +44,7 @@ void add_sig (int sig) {
     memset (&sa, '\0', sizeof (sa));
     sa.sa_handler = sig_handler;
     sa.sa_flags |= SA_RESTART;
-    sigfillset(&sa.sa_mask);    /* 有什么用？ */
+    sigfillset (&sa.sa_mask); /* 有什么用？ */
     int ret = sigaction (sig, &sa, NULL);
     assert (ret != -1);
 }
@@ -106,7 +106,7 @@ int main (int argc, char *argv[]) {
                         int connfd = accept (listenfd, NULL, NULL);
                         assert (connfd > 0);
                         addfd (epfd, connfd);
-                    } else if (fd== pipfd[0] && (events[i].events & EPOLLIN))  {
+                    } else if (fd == pipfd[0] && (events[i].events & EPOLLIN)) {
                         char signals[1024];
                         ret = recv (pipfd[0], signals, sizeof (signals), 0);
                         if (ret == -1) {
@@ -130,7 +130,7 @@ int main (int argc, char *argv[]) {
                                 }
                             }
                         }
-                    } else if (events[i].events & EPOLLIN){
+                    } else if (events[i].events & EPOLLIN) {
                         printf ("get something from conn fd\n");
                         close (fd);
                     }
