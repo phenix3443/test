@@ -1,9 +1,9 @@
-/* coding:utf-8 */
+/* -*- coding:utf-8; -*- */
 /* 测试判断大小端函数 */
 
 #include <stdio.h>
 
-void byte_order() {
+void byte_order () {
     union {
         short v;
         char a[2];
@@ -11,17 +11,14 @@ void byte_order() {
 
     t.v = 0x0102;
 
-    if(t.a[0] == 1 && t.a[1] == 2) {
-        printf("big endian\n");
+    if (t.a[0] == 1 && t.a[1] == 2) {
+        printf ("big endian\n");
+    } else {
+        printf ("little endian\n");
     }
-    else {
-        printf("little endian\n");
-    }
-
 }
 
-int main(int argc, char *argv[])
-{
-    byte_order();
+int main (int argc, char *argv[]) {
+    byte_order ();
     return 0;
 }
