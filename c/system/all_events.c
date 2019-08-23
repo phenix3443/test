@@ -108,7 +108,7 @@ int main (int argc, char *argv[]) {
                         addfd (epfd, connfd);
                     } else if (fd == pipfd[0] && (events[i].events & EPOLLIN)) {
                         char signals[1024];
-                        ret = recv (pipfd[0], signals, sizeof (signals), 0);
+                        ret = recv (fd, signals, sizeof (signals), 0);
                         if (ret == -1) {
                             printf ("redv failed\n");
                         } else if (ret == 0) {
