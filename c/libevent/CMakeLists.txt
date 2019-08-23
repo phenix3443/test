@@ -5,4 +5,5 @@ project(libevent_test
 
 link_libraries(event)
 
+add_executable(globals ${CMAKE_CURRENT_SOURCE_DIR}/globals.c)
 add_executable(tutor ${CMAKE_CURRENT_SOURCE_DIR}/tutor.c)
