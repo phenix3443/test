@@ -13,3 +13,4 @@ add_executable(echo_server_select ${CMAKE_CURRENT_SOURCE_DIR}/echo_server_select
 add_executable(echo_server_poll ${CMAKE_CURRENT_SOURCE_DIR}/echo_server_poll.c)
 add_executable(echo_server_epoll ${CMAKE_CURRENT_SOURCE_DIR}/echo_server_epoll.c)
 add_executable(signal_as_event ${CMAKE_CURRENT_SOURCE_DIR}/signal_as_event.c)
+add_executable(timer_as_event ${CMAKE_CURRENT_SOURCE_DIR}/timer_as_event.c)
