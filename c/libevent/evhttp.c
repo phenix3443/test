@@ -12,50 +12,50 @@
 #include <sys/socket.h>
 
 const char *get_cmd_type (enum evhttp_cmd_type n) {
-    const char *cmdtype;
+    const char *method;
     switch (n) {
         case EVHTTP_REQ_GET:
-            cmdtype = "GET";
+            method = "GET";
             break;
         case EVHTTP_REQ_POST:
-            cmdtype = "POST";
+            method = "POST";
             break;
         case EVHTTP_REQ_HEAD:
-            cmdtype = "HEAD";
+            method = "HEAD";
             break;
         case EVHTTP_REQ_PUT:
-            cmdtype = "PUT";
+            method = "PUT";
             break;
         case EVHTTP_REQ_DELETE:
-            cmdtype = "DELETE";
+            method = "DELETE";
             break;
         case EVHTTP_REQ_OPTIONS:
-            cmdtype = "OPTIONS";
+            method = "OPTIONS";
             break;
         case EVHTTP_REQ_TRACE:
-            cmdtype = "TRACE";
+            method = "TRACE";
             break;
         case EVHTTP_REQ_CONNECT:
-            cmdtype = "CONNECT";
+            method = "CONNECT";
             break;
         case EVHTTP_REQ_PATCH:
-            cmdtype = "PATCH";
+            method = "PATCH";
             break;
         default:
-            cmdtype = "unknown";
+            method = "unknown";
             break;
     }
-    return cmdtype;
+    return method;
 }
 
 /* curl -iv -X POST -d 'hello,world' 'http://127.0.0.1:9876/dump?a=1&b=2' */
 void dump_cb (struct evhttp_request *req, void *data) {
-    const char *cmdtype = get_cmd_type (evhttp_request_get_command (req));
+    const char *method = get_cmd_type (evhttp_request_get_command (req));
 
     const char *uri = evhttp_request_get_uri (req);
-    printf ("Received a %s request for %s\n", cmdtype, uri);
+    printf ("Received a %s request for %s\n", method, uri);
 
-    printf ("query args:\n");
+    printf ("\nquery args:\n");
     const struct evhttp_uri *ev_uri = evhttp_request_get_evhttp_uri (req);
     const char *query = evhttp_uri_get_query (ev_uri);
     struct evkeyvalq query_headers;
@@ -66,32 +66,36 @@ void dump_cb (struct evhttp_request *req, void *data) {
         printf ("%s:%s\n", header->key, header->value);
     }
 
-    printf ("input headers:\n");
-    struct evkeyvalq *input_headers = evhttp_request_get_input_headers (req);
-    for (struct evkeyval *header = input_headers->tqh_first; header;
+    printf ("\nrequest headers:\n");
+    struct evkeyvalq *req_headers = evhttp_request_get_input_headers (req);
+    for (struct evkeyval *header = req_headers->tqh_first; header;
          header = header->next.tqe_next) {
         printf ("%s:%s\n", header->key, header->value);
     }
 
-    struct evbuffer *input_buff = evhttp_request_get_input_buffer (req);
-    int r_body_len = evbuffer_get_length (input_buff);
-    char r_body[r_body_len + 1];
-    memset (r_body, '\0', sizeof (r_body));
-    ret = evbuffer_copyout (input_buff, r_body, r_body_len);
-    printf ("request body:%s\n", r_body);
+    printf("\nrequest body:\n");
+    struct evbuffer *input_buff= evhttp_request_get_input_buffer (req);
+    int req_body_len = evbuffer_get_length (input_buff);
+    char req_body[req_body_len + 1];
+    memset (req_body, '\0', sizeof (req_body));
+    ret = evbuffer_copyout (input_buff, req_body, req_body_len);
+    printf ("%s\n", req_body);
 
-    printf ("output headers:\n");
+    printf ("\nresponse headers:\n");
     struct evkeyvalq *output_headers = evhttp_request_get_output_headers (req);
+    evhttp_add_header(output_headers, "foo", "bar");
+    evhttp_add_header(output_headers, "Content-Type", "application/json;charset=utf-8");
     for (struct evkeyval *header = output_headers->tqh_first; header;
          header = header->next.tqe_next) {
         printf ("%s:%s\n", header->key, header->value);
     }
 
-    char *server_msg = "server get:";
+    char *server_msg = "response body:";
     struct evbuffer *output_buff = evhttp_request_get_output_buffer (req);
     evbuffer_add (output_buff, server_msg, strlen (server_msg));
-    evbuffer_add (output_buff, r_body, r_body_len);
+    evbuffer_add (output_buff, req_body, req_body_len);
     evbuffer_add (output_buff, "\n", 1);
+
     evhttp_send_reply (req, HTTP_OK, "ok", output_buff);
 }
 
