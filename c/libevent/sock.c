@@ -6,13 +6,21 @@
 #include <stdio.h>
 #include <sys/socket.h>
 #include <unistd.h>
+#include <assert.h>
+#include <event2/util.h>
 
-void accept_cb (struct evconnlistener *listener, evutil_socket_t sock,
-                struct sockaddr *addr, int len, void *ptr) {
-    u_int16_t port = ntohs (((struct sockaddr_in *)addr)->sin_port);
+/* 打印客户端端口，然后返回 */
+void accept_cb (evutil_socket_t fd, short events, void *arg) {
+    printf("%s\n", (char *)arg);
+
+    struct sockaddr_in addr;
+    socklen_t socklen = sizeof(addr);
+    int connfd = accept(fd, (struct sockaddr*)&addr, &socklen);
+    u_int16_t port = ntohs (addr.sin_port);
     printf ("client port:%d\n", port);
-    close (sock);
+    close (connfd);
 }
+
 
 int main (int argc, char *argv[]) {
     struct event_base *base = event_base_new ();
@@ -26,19 +34,26 @@ int main (int argc, char *argv[]) {
     addr.sin_port = htons (9876);
     addr.sin_addr.s_addr = htonl (0); /* listen 0.0.0.0 */
 
-    unsigned flag = LEV_OPT_LEAVE_SOCKETS_BLOCKING| LEV_OPT_CLOSE_ON_FREE | LEV_OPT_REUSEABLE;
-    struct evconnlistener *listener =
-        evconnlistener_new_bind (base, accept_cb, NULL, flag, 10,
-                                 (struct sockaddr *)&addr, sizeof (addr));
-    if (!listener) {
-        perror ("启动监听端口错误");
-        return -1;
-    }
+    int listenfd = socket(AF_INET, SOCK_STREAM, 0);
+
+    /* 设置socket可以重用，方便测试 */
+    int reuse = 1;
+    setsockopt(listenfd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse));
+
+    int ret = bind(listenfd, (struct sockaddr*)&addr, sizeof(addr));
+    assert(ret == 0);
+
+    int backlog = 2;            /* 小于5不生效 */
+    ret = listen(listenfd, backlog);
+    assert(ret == 0);
+
+    struct event *ev = event_new(base, listenfd, EV_READ | EV_PERSIST, accept_cb, "new connection");
+    event_add(ev, NULL);
 
     event_base_dispatch(base);
 
-    evconnlistener_free (listener);
+    event_free(ev);
     event_base_free (base);
-
+    close(listenfd);
     return 0;
 }
