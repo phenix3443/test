@@ -5,4 +5,4 @@ project(thread_test
 
 link_libraries(pthread)
 
-add_executable(tutor ${CMAKE_CURRENT_SOURCE_DIR}/tutor.c)
+add_executable(thread ${CMAKE_CURRENT_SOURCE_DIR}/thread.c)
