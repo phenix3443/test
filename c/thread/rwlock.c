@@ -29,13 +29,13 @@ void *myread (void *arg) {
         printf ("read thread: %lu after add cout %d\n", pthread_self (),
                 count);
         pthread_rwlock_unlock (&lock);
-        usleep (10);  // 减少read时候打印数量
+        usleep (10);
     }
     return ((void *)0);
 }
 
 int main (int argc, char *argv[]) {
-    pthread_t w_id;             /* 读县城 */
+    pthread_t w_id;
     if (pthread_create (&w_id, NULL, mywrite, NULL)) {
         printf ("thread create error ");
         return -1;
