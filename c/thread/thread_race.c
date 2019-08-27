@@ -1,45 +1,35 @@
 // -*- coding:utf-8 -*-
 // author:phenix3443
 // desc:模拟线程的竞争情形
-#include <iostream>
 #include <pthread.h>
+#include <stdio.h>
 #include <unistd.h>
-#include <vector>
-struct Foo
-{
-        int count;
-        Foo():count(0) {}
-};
 
-void * work(void *arg) {
-        Foo *tmp = (Foo*)arg;
-        for (int i=0; i < 5; ++i) {
-                ++(tmp->count);
-                usleep(10000);
-        }
+static int count = 0;
 
-        return ((void *)0);
+void *work (void *arg) {
+    for (int i = 0; i < 10; ++i) {
+        ++count;
+        usleep (1000);
+    }
+
+    return ((void *)0);
 }
 
-int main(int argc, char *argv[])
-{
-        Foo f;
+int main (int argc, char *argv[]) {
+    const int thread_count = 25;
+    pthread_t tids[thread_count];
 
-        std::vector<pthread_t> tids(50);
-
-        for (auto &tid : tids) {
-                if(pthread_create(&tid, NULL, work, (void *)&f)) {
-                        std::cout << "thread create error " << std::endl;
-                        return 2;
-                }
+    for (int i = 0; i < thread_count; ++i) {
+        if (pthread_create (&tids[i], NULL, work, NULL)) {
+            printf ("thread create error ");
+            return -1;
         }
+    }
+    for (int i = 0; i < thread_count; ++i) {
+        pthread_join (tids[i], NULL);
+    }
+    printf ("%d\n", count); /* 最终结果应该是250，但是每次数字不一样 */
 
-        for (auto &tid : tids) {
-                pthread_join(tid, NULL);
-        }
-
-        std::cout << f.count << std::endl;
-
-        return 0;
-
+    return 0;
 }
