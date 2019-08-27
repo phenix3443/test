@@ -11,3 +11,4 @@ add_executable(main_thread_canceled ${CMAKE_CURRENT_SOURCE_DIR}/main_thread_canc
 add_executable(thread_race ${CMAKE_CURRENT_SOURCE_DIR}/thread_race.c)
 add_executable(mutex ${CMAKE_CURRENT_SOURCE_DIR}/mutex.c)
 add_executable(rwlock ${CMAKE_CURRENT_SOURCE_DIR}/rwlock.c)
+add_executable(cond ${CMAKE_CURRENT_SOURCE_DIR}/cond.c)
