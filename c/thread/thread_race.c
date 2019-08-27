@@ -8,7 +8,7 @@
 static int count = 0;
 
 void *work (void *arg) {
-    for (int i = 0; i < 10; ++i) {
+    for (int i = 0; i < 50; ++i) {
         ++count;
         usleep (1000);
     }
@@ -17,7 +17,7 @@ void *work (void *arg) {
 }
 
 int main (int argc, char *argv[]) {
-    const int thread_count = 25;
+    const int thread_count = 5;
     pthread_t tids[thread_count];
 
     for (int i = 0; i < thread_count; ++i) {
