@@ -1,13 +1,15 @@
 /* -*- coding:utf-8 -*-  */
-/* 线程创建练习 */
+/* 主线程退出对子线程的影响 */
 
 #include <pthread.h>
 #include <stdio.h>
 #include <unistd.h>
 
-void* work (void *arg) {
-    printf ("tid:%lu, %s\n", pthread_self(), (char *)arg);
-    pthread_exit (NULL);        /* pthread_exit返回值不应该分配在函数栈上 */
+void *work (void *arg) {
+    for (int i = 0; i < 5; ++i) {
+        printf ("child thread alive\n");
+        sleep (2);
+    }
 }
 
 int main (int argc, char *argv[]) {
@@ -18,8 +20,12 @@ int main (int argc, char *argv[]) {
         return -1;
     }
 
-    printf("main thread done\n");
-    pthread_exit(NULL);         /* 退出主线程，不会导致线程退出 */
+    for (int i = 0; i < 3; ++i) {
+        printf ("main thread alive\n");
+        sleep (1);
+    }
+    pthread_exit (NULL); /* 退出主线程，不会导致线程退出 */
 
+    printf("process done");     /* 这句不会打印，因为main_thread 已经死了 */
     return 0;
 }

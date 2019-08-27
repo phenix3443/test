@@ -7,3 +7,4 @@ link_libraries(pthread)
 
 add_executable(thread_create ${CMAKE_CURRENT_SOURCE_DIR}/thread_create.c)
 add_executable(main_thread_exit ${CMAKE_CURRENT_SOURCE_DIR}/main_thread_exit.c)
+add_executable(main_thread_canceled ${CMAKE_CURRENT_SOURCE_DIR}/main_thread_canceled.c)

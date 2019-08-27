@@ -1,6 +1,5 @@
-// -*- coding:utf-8 -*-
-// author:phenix3443
-// desc:pthread_cleanup_相关函数实验
+/* -*- coding:utf-8 -*- */
+/* desc:pthread_cleanup_相关函数实验 */
 
 #include <iostream>
 #include <pthread.h>
