@@ -7,16 +7,23 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-void *first_work (void *arg) {
+void *work (void *arg) {
     pthread_barrier_t *b = (pthread_barrier_t *)arg;
     unsigned int i = rand () % 1000 + 100;
     printf ("%lu sleep %d microseconds\n", pthread_self (), i);
-    usleep (i);
+    usleep (i);                 /* 模拟执行某种工作 */
     int res = pthread_barrier_wait (b);
-    if (res == PTHREAD_BARRIER_SERIAL_THREAD) {
-        printf ("%lu all thread done first work!\n", pthread_self ());
+    switch (res) {
+    case PTHREAD_BARRIER_SERIAL_THREAD:
+        printf ("all done, %lu be master!\n", pthread_self ());
+        break;
+    case 0:
+        printf ("all done, %lu not master!\n", pthread_self ());
+        break;
+    default:
+        printf ("all done, %lu unknown status!\n", pthread_self ());
     }
-    return ((void *)0);
+    return NULL;
 }
 
 int main (int argc, char *argv[]) {
@@ -24,16 +31,17 @@ int main (int argc, char *argv[]) {
     pthread_barrier_t b;
     pthread_barrier_init (&b, NULL, thread_num);
     pthread_t tids[thread_num];
-    for (pthread_t tid = 0; tid < thread_num; tid++) {
-        if (pthread_create (&tid, NULL, first_work, (void *)&b)) {
+    for (int i = 0; i< thread_num; i++) {
+        if (pthread_create (&tids[i], NULL, work, (void *)&b)) {
             printf ("create thread error");
             return 1;
         }
     }
 
-    for (auto &tid : tids) {
-        pthread_join (tid, NULL);
+    for (int i = 0; i< thread_num; ++i) {
+        pthread_join (tids[i], NULL);
     }
+
     pthread_barrier_destroy (&b);
     return 0;
 }
