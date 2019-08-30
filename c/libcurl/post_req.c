@@ -36,7 +36,7 @@ int main (int argc, char *argv[]) {
         /* post body */
         char body[] = "{\"key\":\"value\"}";
         curl_easy_setopt (curl, CURLOPT_POSTFIELDS, body);
-        curl_easy_setopt (curl, CURLOPT_POSTFIELDSIZE, strlen(body));
+        /* curl_easy_setopt (curl, CURLOPT_POSTFIELDSIZE, strlen(body)); */
         CURLcode res = curl_easy_perform (curl);
 
         if (CURLE_OK != res) {
