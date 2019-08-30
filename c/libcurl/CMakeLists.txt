@@ -5,5 +5,4 @@ project(libcurl_test
 
 link_libraries(curl)
 add_executable(get_req ${CMAKE_CURRENT_SOURCE_DIR}/get_req.c)
-add_executable(parse_resp ${CMAKE_CURRENT_SOURCE_DIR}/parse_resp.c)
 add_executable(post_req ${CMAKE_CURRENT_SOURCE_DIR}/post_req.c)

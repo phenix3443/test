@@ -1,5 +1,6 @@
 /* -*-coding:utf-8; -*- */
 /* 使用libcurl发送get请求 */
+/* 由于没有设置write回调，请求会打印在标准输出上 */
 
 #include <curl/curl.h>
 #include <stdio.h>

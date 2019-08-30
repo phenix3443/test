@@ -1,5 +1,6 @@
 /* -*-coding:utf-8; -*- */
-/* 使用libcurl发送get请求 */
+/* 使用libcurl发送post请求，body是json数据 */
+/* 设置post body，header中的content-type */
 
 #include <curl/curl.h>
 #include <stdio.h>
