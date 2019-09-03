@@ -6,3 +6,4 @@ project(zlog_test
 link_libraries(zlog)
 
 add_executable(level ${CMAKE_CURRENT_SOURCE_DIR}/level.c)
+add_executable(dzlog ${CMAKE_CURRENT_SOURCE_DIR}/dzlog.c)
