@@ -9,3 +9,5 @@ aux_source_directory(${CMAKE_CURRENT_SOURCE_DIR}/static_var_in_h static_var_in_h
 add_executable(static_var_in_h ${static_var_in_h_src})
 
 add_executable(swtich ${CMAKE_CURRENT_SOURCE_DIR}/switch.c)
+
+add_executable(sizeof ${CMAKE_CURRENT_SOURCE_DIR}/sizeof.c)
