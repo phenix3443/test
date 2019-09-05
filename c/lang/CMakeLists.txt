@@ -11,3 +11,4 @@ add_executable(static_var_in_h ${static_var_in_h_src})
 add_executable(swtich ${CMAKE_CURRENT_SOURCE_DIR}/switch.c)
 
 add_executable(sizeof ${CMAKE_CURRENT_SOURCE_DIR}/sizeof.c)
+add_executable(comma_in_while.c ${CMAKE_CURRENT_SOURCE_DIR}/comma_in_while.c)
