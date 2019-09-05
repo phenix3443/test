@@ -12,3 +12,4 @@ add_executable(swtich ${CMAKE_CURRENT_SOURCE_DIR}/switch.c)
 
 add_executable(sizeof ${CMAKE_CURRENT_SOURCE_DIR}/sizeof.c)
 add_executable(comma_in_while.c ${CMAKE_CURRENT_SOURCE_DIR}/comma_in_while.c)
+add_executable(count_1 ${CMAKE_CURRENT_SOURCE_DIR}/count_1.c)
