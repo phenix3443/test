@@ -5,7 +5,7 @@
 
 void say (char *message) { printf ("%s", message); }
 
-char *message = "hello,world!\n";
+char *message = "hello,c!\n";
 
 int main (int argc, char *argv[]) {
     say (message);
