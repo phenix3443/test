@@ -7,6 +7,6 @@ import (
 )
 
 func main() {
-    str := "hello,世界"
+    str := "hello,golang!"
     fmt.Println(str)
 }
