@@ -1,4 +1,5 @@
 #!/bin/bash
+# export GOPATH=$(go env GOPATH):$(pwd)
 # -*-coding:utf-8 -*-
 SCRIPT_DIR=$(cd $(dirname "$0"); pwd)
 WORKSPACE=${SCRIPT_DIR}
