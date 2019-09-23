@@ -3,7 +3,7 @@
 #include <stdarg.h>
 #include <stddef.h>
 
-#include <google/cmockery.h>
+#include <google/cmockery.h> /* 注意该头文件依赖上面三个头文件，注意顺序 */
 
 void test_success (void **state) {}
 
