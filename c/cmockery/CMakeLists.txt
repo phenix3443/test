@@ -3,10 +3,9 @@ project(cmockery_test
   VERSION 0.0.0.1
   DESCRIPTION "cmockery测试")
 
-add_executable(test_cmockery ${CMAKE_CURRENT_SOURCE_DIR}/cmockery.c)
+link_libraries(cmockery)
 
-
-target_link_libraries(test_cmockery
-  PRIVATE
-  cmockery
-  )
+add_executable(overview ${CMAKE_CURRENT_SOURCE_DIR}/overview.c)
+add_executable(mock_assert ${CMAKE_CURRENT_SOURCE_DIR}/mock_assert.c)
+add_executable(expect_assert_failure ${CMAKE_CURRENT_SOURCE_DIR}/expect_assert_failure.c)
+add_executable(assert_type_equal ${CMAKE_CURRENT_SOURCE_DIR}/assert_type_equal.c)

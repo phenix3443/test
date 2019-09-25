@@ -8,14 +8,11 @@
 
 #include <google/cmockery.h> /* 注意该头文件依赖上面三个头文件，注意顺序 */
 
-void assert_success (void **state) { assert (true); }
-
-void assert_failed (void **state) { assert (false); }
+void empty_test (void **state) {}
 
 int main (int argc, char *argv[]) {
     const UnitTest tests[] = {
-        unit_test (assert_success),
-        unit_test (assert_failed),
+        unit_test (empty_test),
     };
     return run_tests (tests);
 }

@@ -16,16 +16,19 @@ extern void mock_assert (const int result, const char *const expression,
     mock_assert ((int)(expression), #expression, __FILE__, __LINE__);
 #endif  // UNIT_TESTING
 
-void f () { assert (true); }
-void g () { assert (false); }
+void f () {}
+void g () { assert (true); }
+void h () { assert (false); }
 
-void test_success (void **state) { assert (true); }
-void test_failure (void **state) { assert (false); }
+void test_success (void **state) { expect_assert_failure (f); }
+void test_failure (void **state) { expect_assert_failure (g); }
+void test_failure_2 (void **state) { expect_assert_failure (h); }
 
 int main (int argc, char *argv[]) {
     const UnitTest tests[] = {
         unit_test (test_success),
         unit_test (test_failure),
+        unit_test (test_failure_2),
     };
     return run_tests (tests);
 }
