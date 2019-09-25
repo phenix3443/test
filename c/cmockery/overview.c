@@ -1,4 +1,5 @@
 /* -*- coding:utf-8; -*- */
+/* 测试cmockery测试代码架构 */
 #include <assert.h>
 #include <stdbool.h>
 

@@ -1,4 +1,6 @@
 /* -*- coding:utf-8; -*- */
+/* 测试expect_assert_failure使用 */
+
 #include <assert.h>
 #include <stdbool.h>
 
@@ -8,17 +10,9 @@
 
 #include <google/cmockery.h> /* 注意该头文件依赖上面三个头文件，注意顺序 */
 
-#if UNIT_TESTING
-extern void mock_assert (const int result, const char *const expression,
-                         const char *const file, const int line);
-#undef assert
-#define assert(expression) \
-    mock_assert ((int)(expression), #expression, __FILE__, __LINE__);
-#endif  // UNIT_TESTING
-
 void f () {}
-void g () { assert (true); }
-void h () { assert (false); }
+void g () { assert_true (true); }
+void h () { assert_true (false); }
 
 void test_success (void **state) { expect_assert_failure (f); }
 void test_failure (void **state) { expect_assert_failure (g); }

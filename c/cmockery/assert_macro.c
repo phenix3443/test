@@ -1,4 +1,5 @@
 /* -*- coding:utf-8; -*- */
+/* 测试assert_* 系列的宏 */
 #include <assert.h>
 #include <stdbool.h>
 

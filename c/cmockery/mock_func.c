@@ -1,5 +1,6 @@
 /* -*- coding:utf-8; -*- */
 /* 测试mock fucntion以及返回值 */
+
 #include <assert.h>
 #include <stdbool.h>
 

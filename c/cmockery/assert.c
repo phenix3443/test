@@ -1,4 +1,5 @@
 /* -*- coding:utf-8; -*- */
+/* 测试使用mock_assert替代标准库assert函数 */
 #include <assert.h>
 #include <stdbool.h>
 
