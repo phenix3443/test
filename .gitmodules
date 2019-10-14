@@ -1,3 +1,0 @@
-[submodule "sub_test"]
-	path = sub_test
-	url = git@github.com:phenix3443/sub_test.git
