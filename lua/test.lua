@@ -12,6 +12,7 @@ t = {a="a",b="b"}
 function display ()
     print(os.time())
     print(t.a)
+    print(os.)
 end
 
 
