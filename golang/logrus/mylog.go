@@ -5,7 +5,7 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/sirupsen/logrus"
+	"github.com/sirupsen/"
 )
 
 var logger = logrus.New()
@@ -25,7 +25,7 @@ func SetLogFormatter(formatter logrus.Formatter) {
 func Debug(args ...interface{}) {
 	if logger.Level >= logrus.DebugLevel {
 		entry := logger.WithFields(logrus.Fields{})
-		entry.Data["file"] = fileInfo(2)
+		entry.Data["logrusfile"] = fileInfo(2)
 		entry.Debug(args)
 	}
 }
