@@ -9,7 +9,8 @@ import (
 func wrapFunc(e interface{}) { fmt.Println(e) }
 
 func main() {
-	s := set.New(1, 2, 3, 4)
+	a := []interface{}{1, 2, 3, 4}
+	s := set.New(a...)
 	if s.Has(3) {
 		fmt.Println("has 3 in set")
 	}
