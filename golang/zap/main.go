@@ -1,4 +1,4 @@
-package testzap
+package main
 
 import (
 	"time"
