@@ -6,6 +6,21 @@ import (
 	"go.uber.org/zap"
 )
 
+func buildinLogger() {
+	el := zap.NewExample()
+	defer el.Sync()
+	el.Debug("zap example logger")
+
+	dl, _ := zap.NewDevelopment()
+	defer dl.Sync()
+	dl.Debug("zap  develop logger")
+
+	pl, _ := zap.NewProduction()
+	defer pl.Sync()
+	pl.Debug("zap production develop logger")
+	pl.Info("zap production info logger")
+}
+
 func zapSugared() {
 	logger := zap.NewExample().Sugar()
 	defer logger.Sync()
@@ -72,8 +87,9 @@ func advanceConfig() {
 }
 
 func main() {
-	// zapSugared()
+	buildinLogger()
 
+	// zapSugared()
 	// childLogger()
-	basicConfig()
+	// basicConfig()
 }
