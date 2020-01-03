@@ -6,7 +6,7 @@ import (
 	"go.uber.org/zap"
 )
 
-func buildinLogger() {
+func presetLogger() {
 	el := zap.NewExample()
 	defer el.Sync()
 	el.Debug("zap example logger")
@@ -21,45 +21,29 @@ func buildinLogger() {
 	pl.Info("zap production info logger")
 }
 
-func zapSugared() {
+func zapSugaredLogger() {
 	logger := zap.NewExample().Sugar()
 	defer logger.Sync()
 
-	logger.Debug("debug message with println foramat")
-	logger.Debugf("debug message with printf format:%s", "foo")
-	logger.Debugw("debug message with k,v", "foo", "bar")
+	logger.Debug("sugared logger debug message with println foramat")
+	logger.Debugf("sugared logger debug message with printf format:%s", "foo")
+	logger.Debugw("sugared logger debug message with k,v", "foo", "bar")
 }
 
 func zapLogger() {
-
-}
-
-func childLogger() {
-	logger := zap.NewExample().Sugar()
+	logger := zap.NewExample()
 	defer logger.Sync()
 
-	logger.Debug("main logger")
-
-	cLogger := logger.With("child", true)
-	cLogger.Debug("child logger")
+	logger.Debug("zap logger debug info", zap.Int32("key", 32))
 }
 
 func basicConfig() {
-	var cfg zap.Config
-
-	// cfg.Level.SetLevel(zap.InfoLevel)
-	// cfg.OutputPaths = []string{"/tmp/stdout"}
-	// cfg.ErrorOutputPaths = []string{"/tmp/stderr"}
-	// cfg.Encoding = "json"
-	// cfg.EncoderConfig.MessageKey = "msg"
-	// cfg.EncoderConfig.LevelKey = "level"
-	// cfg.InitialFields = map[string]interface{}{"foo": "bar"}
-
 	rawJSON := []byte(`{
 		"level": "debug",
-		"outputPaths": ["/tmp/stdout"],
-		"errorOutputPaths": ["/tmp/stderr"],
 		"encoding": "json",
+		"outputPaths": ["stdout","/tmp/stdout"],
+		"errorOutputPaths": ["stdout","/tmp/stderr"],
+        "initialFields":{"foo":"bar"},
 		"encoderConfig": {
 			"messageKey": "message",
 			"levelKey": "level",
@@ -67,9 +51,31 @@ func basicConfig() {
 		}
 	}`)
 
+	var cfg zap.Config
 	if err := json.Unmarshal(rawJSON, &cfg); err != nil {
 		panic(err)
 	}
+
+	logger, err := cfg.Build()
+	if err != nil {
+		panic(err)
+	}
+	defer logger.Sync()
+
+	logger.Sugar().Debug("base configure debug log")
+
+}
+
+func basicConfig2() {
+	var cfg zap.Config
+
+	cfg.Level.SetLevel(zap.InfoLevel)
+	cfg.OutputPaths = []string{"/tmp/stdout"}
+	cfg.ErrorOutputPaths = []string{"/tmp/stderr"}
+	cfg.Encoding = "json"
+	cfg.EncoderConfig.MessageKey = "msg"
+	cfg.EncoderConfig.LevelKey = "level"
+	cfg.InitialFields = map[string]interface{}{"foo": "bar"}
 
 	logger, err := cfg.Build()
 	if err != nil {
@@ -86,10 +92,20 @@ func advanceConfig() {
 
 }
 
-func main() {
-	buildinLogger()
+func childLogger() {
+	logger := zap.NewExample().Sugar()
+	defer logger.Sync()
 
-	// zapSugared()
+	logger.Debug("main logger")
+
+	cLogger := logger.With("child", true)
+	cLogger.Debug("child logger")
+}
+
+func main() {
+	// presetLogger()
+	// zapSugaredLogger()
+	// zapLogger()
+	basicConfig()
 	// childLogger()
-	// basicConfig()
 }
