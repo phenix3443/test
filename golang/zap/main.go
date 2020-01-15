@@ -4,6 +4,7 @@ func main() {
 	// presetLogger()
 	// zapSugaredLogger()
 	// zapLogger()
-	basicConfig()
+	// basicConfig()
+	atomLevelTest()
 	// childLogger()
 }
