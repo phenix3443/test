@@ -5,6 +5,6 @@ func main() {
 	// zapSugaredLogger()
 	// zapLogger()
 	// basicConfig()
-	atomLevelTest()
-	// childLogger()
+	// atomLevelTest()
+	childLogger()
 }

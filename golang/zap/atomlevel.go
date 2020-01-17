@@ -1,10 +1,26 @@
 package main
 
 import (
+	"log"
+	"net/http"
 	"time"
 
 	"go.uber.org/zap"
 )
+
+func printLog(logger *zap.Logger) {
+	for i := 0; i < 10; {
+
+		logger.Sugar().Debug("debug log show not diplay")
+
+		logger.Sugar().Error("info log display")
+
+		t, _ := time.ParseDuration("1s")
+		time.Sleep(t)
+
+		i++
+	}
+}
 
 func atomLevelTest() {
 	encoderConfig := zap.NewDevelopmentEncoderConfig()
@@ -17,6 +33,7 @@ func atomLevelTest() {
 		DisableStacktrace: true,
 		Encoding:          "json",
 		EncoderConfig:     encoderConfig,
+		OutputPaths:       []string{"stdout"},
 	}
 
 	logger, err := cfg.Build()
@@ -26,12 +43,9 @@ func atomLevelTest() {
 
 	defer logger.Sync()
 
-	for true {
-		t, _ := time.ParseDuration("1s")
-		time.Sleep(t)
+	go printLog(logger)
 
-		logger.Sugar().Debug("debug log show not diplay")
+	http.HandleFunc("/", atomLevel.ServeHTTP)
 
-		logger.Sugar().Error("info log display")
-	}
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
