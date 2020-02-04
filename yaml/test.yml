@@ -1,0 +1,35 @@
+# 这是一行注释
+dict: bar
+
+child_dict:
+  key1: val1
+  key2: val2
+
+kv_split_dict:
+  ? - key1
+    - key2
+  : - val1
+    - val2
+
+inline_array: [a1, a2, a3]
+
+array:
+  - a1
+  - a2
+  - a3
+
+companies:
+  - name: c1
+    price: 100
+
+  - name: c2
+    price: 1000
+
+base_type:
+  boolean: true
+  float: 3.14
+  int: 123
+  null: null
+  string: hahahha
+  date: 2020-01-01
+  datetime: 2020-01-01T15:04:05+08:00
