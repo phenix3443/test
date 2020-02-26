@@ -2,25 +2,34 @@ package main
 
 import (
 	"fmt"
-	"time"
+	"sync"
 )
 
-func send(ch chan string) {
+func send(wg *sync.WaitGroup, ch chan string) {
 	ch <- "hello,"
 	ch <- "world"
+	wg.Done()
 }
 
-func recv(ch chan string) {
+func recv(wg *sync.WaitGroup, ch chan string) {
 	for str := range ch {
 		fmt.Println(str)
+		wg.Done()
 	}
 }
+
 func main() {
 	ch := make(chan string)
-	go send(ch)
-	go recv(ch)
+	defer close(ch)
+	var wg sync.WaitGroup
 
-	t, _ := time.ParseDuration("10s")
-	time.Sleep(t)
+	wg.Add(1)
+	go send(&wg, ch)
+
+	wg.Add(1)
+	go recv(&wg, ch)
+
+	wg.Wait()
+
 	fmt.Println("main done")
 }
