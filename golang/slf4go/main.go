@@ -4,8 +4,9 @@ import (
 	"os"
 	"time"
 
-	sl "github.com/go-eden/slf4go-logrus"
 	slog "github.com/phenix3443/slf4go"
+	// slog "github.com/go-eden/slf4go"
+	sl "github.com/go-eden/slf4go-logrus"
 	sz "github.com/phenix3443/slf4go-zap"
 	"github.com/sirupsen/logrus"
 	"go.uber.org/zap"
