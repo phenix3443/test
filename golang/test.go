@@ -2,7 +2,6 @@ package main
 
 import (
 	slog "github.com/go-eden/slf4go"
-	// slog "github.com/phenix3443/slf4go"
 	sz "github.com/phenix3443/slf4go-zap"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
