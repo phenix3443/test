@@ -7,9 +7,12 @@ import (
 )
 
 var (
-	sleep1s, _ = time.ParseDuration("1s")
-	sleep5s, _ = time.ParseDuration("5s")
-	wait1ms, _ = time.ParseDuration("1ms")
+	sleep1ms, _ = time.ParseDuration("1ms")
+	sleep3ms, _ = time.ParseDuration("3ms")
+	sleep1s, _  = time.ParseDuration("1s")
+	sleep3s, _  = time.ParseDuration("3s")
+	sleep5s, _  = time.ParseDuration("5s")
+	wait1ms, _  = time.ParseDuration("1ms")
 )
 
 func blockedSend() (ch chan int) {
@@ -32,6 +35,7 @@ func blockedRecv(ch chan int) {
 	log.Printf("recv %d\n", i)
 }
 
+// go test -run  BlockedChannel
 func TestBlockedChannel(t *testing.T) {
 	ch := blockedSend()
 	go blockedRecv(ch)
