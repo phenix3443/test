@@ -28,7 +28,7 @@ func recv(wg *sync.WaitGroup, ch chan int) {
 	defer wg.Done()
 	for i := range ch {
 		log.Printf("recv %d\n", i)
-		time.Sleep(wait1ms)
+		time.Sleep(1 * time.Microsecond)
 	}
 	log.Println("recv end")
 }

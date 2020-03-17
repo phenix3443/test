@@ -6,15 +6,6 @@ import (
 	"time"
 )
 
-var (
-	sleep1ms, _ = time.ParseDuration("1ms")
-	sleep3ms, _ = time.ParseDuration("3ms")
-	sleep1s, _  = time.ParseDuration("1s")
-	sleep3s, _  = time.ParseDuration("3s")
-	sleep5s, _  = time.ParseDuration("5s")
-	wait1ms, _  = time.ParseDuration("1ms")
-)
-
 func blockedSend() (ch chan int) {
 	ch = make(chan int)
 
@@ -30,7 +21,7 @@ func blockedSend() (ch chan int) {
 
 func blockedRecv(ch chan int) {
 	log.Println("recv start")
-	time.Sleep(wait1ms)
+	time.Sleep(time.Microsecond)
 	i := <-ch
 	log.Printf("recv %d\n", i)
 }
@@ -39,6 +30,6 @@ func blockedRecv(ch chan int) {
 func TestBlockedChannel(t *testing.T) {
 	ch := blockedSend()
 	go blockedRecv(ch)
-	time.Sleep(sleep1s)
+	time.Sleep(time.Second)
 	log.Println("main done")
 }

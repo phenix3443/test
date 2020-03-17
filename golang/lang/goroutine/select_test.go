@@ -13,7 +13,7 @@ func f1(wg *sync.WaitGroup) (ch chan string) {
 	go func() {
 		defer close(ch)
 		defer wg.Done()
-		time.Sleep(sleep1s)
+		time.Sleep(time.Second)
 		ch <- "function 1 wake up"
 	}()
 	return ch
@@ -25,7 +25,7 @@ func f2(wg *sync.WaitGroup) (ch chan string) {
 	go func() {
 		defer close(ch)
 		defer wg.Done()
-		time.Sleep(sleep3s)
+		time.Sleep(3 * time.Second)
 		ch <- "function 2 wake up"
 
 	}()
@@ -64,7 +64,7 @@ func TestSelect(t *testing.T) {
 			fmt.Println(v)
 			quit = false
 		default:
-			time.Sleep(sleep1ms)
+			time.Sleep(time.Microsecond)
 		}
 
 	}
