@@ -1,3 +1,8 @@
+local lu = require("luaunit")
+
+os.exit(lu.LuaUnit.run())
+
+
 local function foo(a)
     return a[1]
 end

@@ -1,4 +1,7 @@
--- lua5.3
+local lu = require("luaunit")
+
+
+
 local function foo(a)
     return a[1]
 end
@@ -15,3 +18,5 @@ local function main()
     print(err)
 end
 main()
+
+os.exit(lua.LuaUnit.run())
