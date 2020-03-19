@@ -20,6 +20,7 @@ openresty/COPYRIGHT
 openresty/luajit/
 openresty/lualib/
 openresty/nginx/*
+!openresty/nginx/lua/
 !openresty/nginx/conf/nginx.conf
 !openresty/nginx/conf/vhosts/*.nginx.conf
 openresty/pod/
