@@ -2,8 +2,8 @@ package test
 
 import (
 	"fmt"
-	"strings"
 	"testing"
+	"unsafe"
 )
 
 // func TestSliceSpace(t *testing.T) {
@@ -13,9 +13,6 @@ import (
 // }
 
 func TestB(*testing.T) {
-	for i := 0; i < 10; i++ {
-		fmt.Println(strings.Repeat("G", i))
-
-	}
-
+	var s string
+	fmt.Println(unsafe.Sizeof(s))
 }
