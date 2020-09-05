@@ -2,17 +2,18 @@
 
 import socket
 
+
 def run():
     s = socket.socket()
 
-    srv_host = ''
+    srv_host = ""
     srv_port = 12345
 
     s.connect((srv_host, srv_port))
 
     buf_size = 1024
     while True:
-        data = raw_input('>')
+        data = raw_input(">")
         if not data:
             break
 
@@ -24,5 +25,6 @@ def run():
 
     s.close()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     run()
