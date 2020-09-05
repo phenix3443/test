@@ -1,5 +1,5 @@
 # -*- coding:utf-8; -*-
-import addressbook_pb2
+from . import addressbook_pb2
 
 
 def write_data():
@@ -8,6 +8,7 @@ def write_data():
     person.name = "john Doe"
     person.id = 123
     person.email = "jdoe@example.com"
+
     with open("data.txt", "wb") as f:
         f.write(address_book.SerializeToString())
 
@@ -21,4 +22,5 @@ def read_data():
 
 
 if __name__ == "__main__":
+    write_data()
     read_data()
