@@ -1,0 +1,3 @@
+# -*- coding:utf-8;mode:yaml; -*-
+BasedOnStyle: google
+IndentWidth: 4
