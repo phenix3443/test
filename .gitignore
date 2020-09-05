@@ -25,3 +25,4 @@ openresty/nginx/*
 !openresty/nginx/conf/vhosts/*.nginx.conf
 openresty/pod/
 openresty/resty.index
+/protobuf/data.txt
