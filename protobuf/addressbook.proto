@@ -2,10 +2,14 @@ syntax = "proto3";
 
 package tutorial;
 
+import "google/protobuf/timestamp.proto";
+
+// option go_package = "github.com/phenix3443/test/protobuf/addressbook";
+
 message Person {
-  required string name = 1;
-  required int32 id = 2;
-  optional string email = 3;
+  string name = 1;
+  int32 id = 2;
+  string email = 3;
 
   enum PhoneType {
     MOBILE = 0;
@@ -14,11 +18,13 @@ message Person {
   }
 
   message PhoneNumber {
-    required string number = 1;
-    optional PhoneType type = 2 [ default = HOME ];
+    string number = 1;
+    PhoneType type = 2;
   }
 
-  repeated PhoneNumber phones = 4;
+  PhoneNumber phones = 4;
+
+  google.protobuf.Timestamp last_updated = 5;
 }
 
 message AddressBook { repeated Person people = 1; }
