@@ -1,9 +1,10 @@
-package main
+package slf4go_test
 
 import (
 	"os"
+	"testing"
+	"time"
 
-	// slog "github.com/phenix3443/slf4go"
 	slog "github.com/go-eden/slf4go"
 	sl "github.com/go-eden/slf4go-logrus"
 	sz "github.com/phenix3443/slf4go-zap"
@@ -12,42 +13,42 @@ import (
 	"go.uber.org/zap/zapcore"
 )
 
-// func baseUsage() {
-// 	slog.Debugf("debug time: %v", time.Now())
-// 	slog.Warn("warn log")
-// 	slog.Error("error log")
-// }
+func TestBaseUsage(t *testing.T) {
+	slog.Debugf("debug time: %v", time.Now())
+	slog.Warn("warn log")
+	slog.Error("error log")
+}
 
-// func namedLogger() {
-// 	log1 := slog.GetLogger()
-// 	log1.Debug("main logger")
+func TestNamedLogger(t *testing.T) {
+	log1 := slog.GetLogger()
+	log1.Debug("main logger")
 
-// 	log2 := slog.NewLogger("testLogger")
-// 	log2.Info("new logger")
-// }
+	log2 := slog.NewLogger("testLogger")
+	log2.Info("new logger")
+}
 
-// func useFields() {
-// 	log := slog.GetLogger()
-// 	log.BindFields(slog.Fields{"age": 18})
-// 	log.Info("with fields")
-// }
+func TestFields(t *testing.T) {
+	log := slog.GetLogger()
+	log.BindFields(slog.Fields{"age": 18})
+	log.Info("with fields")
+}
 
-// func useLevel() {
-// 	log := slog.NewLogger("log")
-// 	print(log.Level().String())
-// }
+func TestLevel(t *testing.T) {
+	log := slog.NewLogger("log")
+	print(log.Level().String())
+}
 
-// func useHook() {
-// 	slog.RegisterHook(func(*slog.Log) {
-// 		println("hello,hook")
-// 	})
-// 	log1 := slog.NewLogger("log1")
-// 	log1.Info("use log1")
-// 	log2 := slog.NewLogger("log2")
-// 	log2.Info("use log2")
-// }
+func TestHook(t *testing.T) {
+	slog.RegisterHook(func(*slog.Log) {
+		println("hello,hook")
+	})
+	log1 := slog.NewLogger("log1")
+	log1.Info("use log1")
+	log2 := slog.NewLogger("log2")
+	log2.Info("use log2")
+}
 
-func useLogrusDriver() {
+func TestLogrusDriver(t *testing.T) {
 	sl.Init()
 
 	logrus.SetOutput(os.Stdout)
@@ -63,7 +64,7 @@ func useLogrusDriver() {
 	log.Errorf("error!!! %v", 100)
 }
 
-func useZapDriver() {
+func TestZapDriver(t *testing.T) {
 	encoderConfig := zapcore.EncoderConfig{
 		MessageKey:     "msg",
 		LevelKey:       "level",
@@ -95,14 +96,4 @@ func useZapDriver() {
 	log1.Debug("debug info")
 	log1.Infof("info info,v=%d", 10)
 	log1.WithFields(slog.Fields{"fav": "basketball"}).Warn("warn message")
-}
-
-func main() {
-	// baseUsage()
-	// namedLogger()
-	// useFields()
-	// useLevel()
-	// useHook()
-	// useLogrusDriver()
-	useZapDriver()
 }
