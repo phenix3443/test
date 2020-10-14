@@ -1,4 +1,4 @@
-module github.com/phenix3443/test/golang
+module golang_test
 
 go 1.14
 
@@ -9,6 +9,7 @@ require (
 	github.com/go-eden/slf4go-logrus v1.0.0
 	github.com/go-sql-driver/mysql v1.4.1
 	github.com/golang-collections/collections v0.0.0-20130729185459-604e922904d3
+	github.com/kr/pretty v0.1.0
 	github.com/phenix3443/slf4go-zap v0.0.0-20200304145205-ff92fa55a19f
 	github.com/shiena/ansicolor v0.0.0-20151119151921-a422bbe96644 // indirect
 	github.com/sirupsen/logrus v1.4.2

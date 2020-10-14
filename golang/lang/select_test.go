@@ -1,4 +1,4 @@
-package channel_test
+package lang
 
 import (
 	"fmt"
@@ -7,8 +7,8 @@ import (
 	"time"
 )
 
-func f1(wg *sync.WaitGroup) (ch chan string) {
-	ch = make(chan string)
+func f1(wg *sync.WaitGroup) chan string {
+	ch := make(chan string)
 	wg.Add(1)
 	go func() {
 		defer close(ch)
@@ -19,8 +19,8 @@ func f1(wg *sync.WaitGroup) (ch chan string) {
 	return ch
 }
 
-func f2(wg *sync.WaitGroup) (ch chan string) {
-	ch = make(chan string)
+func f2(wg *sync.WaitGroup) chan string {
+	ch := make(chan string)
 	wg.Add(1)
 	go func() {
 		defer close(ch)

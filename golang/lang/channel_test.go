@@ -1,47 +1,34 @@
 package lang
 
 import (
-	"fmt"
 	"testing"
 	"time"
 )
 
-func TestChannel(*testing.T) {
-	strChan := make(chan string, 3)
-	syncChan := make(chan struct{}, 1)
-	mainChan := make(chan struct{}, 2)
+func blockedSend(t *testing.T) chan int {
+	ch := make(chan int)
+
 	go func() {
-		<-syncChan
-		fmt.Println("[receiver] received a sync signal and wait a second....")
-		time.Sleep(time.Second)
-		for {
-			if elem, ok := <-strChan; ok {
-				fmt.Println("received:", elem)
-			} else {
-				break
-			}
-		}
-		fmt.Println("[receiver] stoped")
-		mainChan <- struct{}{}
-	}()
-	go func() {
-		for i, elem := range []string{"a", "b", "c", "d"} {
-			fmt.Println("[sender] sent:", elem)
-			strChan <- elem
-			if i%3 == 0 {
-				syncChan <- struct{}{}
-				fmt.Println("[sender] sent a sync signal,wait a second...")
-				time.Sleep(time.Second)
-			}
-		}
-		fmt.Println("[sender] wait 2 seconds...")
-		time.Sleep(time.Second * 2)
-		close(strChan)
-		mainChan <- struct{}{}
+		defer close(ch)
+		t.Log("send start")
+		ch <- 100
+		t.Log("send stop")
 	}()
 
-	fmt.Println("[main] waiting...")
-	<-mainChan
-	<-mainChan
-	fmt.Println("[main] stoped")
+	return ch
+}
+
+func blockedRecv(t *testing.T, ch chan int) {
+	t.Log("recv start")
+	time.Sleep(time.Microsecond)
+	i := <-ch
+	t.Logf("recv stop, received: %d", i)
+}
+
+// 测试阻塞型 channel 生产者和消费者的执行顺序
+func TestBlockedChannel(t *testing.T) {
+	ch := blockedSend(t)
+	go blockedRecv(t, ch)
+	time.Sleep(time.Second)
+	t.Log("test done")
 }

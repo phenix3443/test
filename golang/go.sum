@@ -62,8 +62,7 @@ github.com/mattn/go-sqlite3 v1.10.0/go.mod h1:FPy6KqzDD04eiIsT53CuJW3U88zkxoIYsO
 github.com/pelletier/go-toml v1.2.0/go.mod h1:5z9KED0ma1S8pY6P1sdut58dfprrGBbd/94hg7ilaic=
 github.com/phenix3443/slf4go-zap v0.0.0-20200304145205-ff92fa55a19f h1:hE/KEel7xH1IF/C0AANdJuf4jXaSrsTrpokVTjya61g=
 github.com/phenix3443/slf4go-zap v0.0.0-20200304145205-ff92fa55a19f/go.mod h1:/YkMPDL0BEZ1IExvHPuJrtFbqdu1K4vWVrUEXGMO6eY=
-github.com/phenix3443/test v0.0.0-20200915172237-d4a64210d6ad h1:jBTZwwXvwkDq05Wz/QsH4D/UOZHxf7V2pPiu8EXeXec=
-github.com/phenix3443/test/golang v0.0.0-20200915172237-d4a64210d6ad h1:TW4K0T04a4OXAbogJbttYucxFM4TCjz340NXlTW7jLo=
+github.com/phenix3443/test v0.0.0-20201013174635-3d80224b73a6 h1:PUEzS7fjw5VjzIoU/MjcmWFsnv9OZJXXSlAs03vgt3g=
 github.com/pkg/errors v0.8.0/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/pkg/errors v0.8.1 h1:iURUrRGxPUNPdy5/HRSm+Yj6okJ6UtLINN0Q9M4+h3I=
 github.com/pkg/errors v0.8.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
@@ -118,7 +117,6 @@ golang.org/x/sys v0.0.0-20190215142949-d0b11bdaac8a/go.mod h1:STP8DvDyc/dI5b8T5h
 golang.org/x/sys v0.0.0-20190412213103-97732733099d/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=
 golang.org/x/sys v0.0.0-20190422165155-953cdadca894 h1:Cz4ceDQGXuKRnVBDTS23GTn/pU5OE2C0WrNTOYK1Uuc=
 golang.org/x/sys v0.0.0-20190422165155-953cdadca894/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=
-golang.org/x/text v0.3.0 h1:g61tztE5qeGQ89tm6NTjjM9VPIm088od1l6aSorWRWg=
 golang.org/x/text v0.3.0/go.mod h1:NqM8EUOU14njkJ3fqMW+pc6Ldnwhi/IjpwHt7yyuwOQ=
 golang.org/x/text v0.3.2 h1:tW2bmiBqwgJj/UpqtC8EpXEZVYOwU0yG4iWbprSVAcs=
 golang.org/x/text v0.3.2/go.mod h1:bEr9sfX3Q8Zfm5fL9x+3itogRgK3+ptLWKqgva+5dAk=
