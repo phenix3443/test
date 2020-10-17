@@ -1,7 +1,8 @@
-package lang
+package mytest
 
 import (
 	"testing"
+	"unsafe"
 )
 
 // 验证两个问题：
@@ -27,4 +28,17 @@ func TestResize(t *testing.T) {
 	t.Logf("out func before call, s addr=%p, value=%v", s, s)
 	add(t, s)
 	t.Logf("out func after call, s addr=%p, value=%v", s, s)
+}
+
+// 测试没有初始化的 slice 底层内存没有分配
+func TestSliceSpace(t *testing.T) {
+	var s1 []int
+	s2 := []int{}
+	t.Logf("s1=%p,s2=%p", s1, s2) // s1=0x0,s2=0x1268f58
+}
+
+// 测试 slice 本身 size
+func TestSliceSize(t *testing.T) {
+	x := make([]struct{}, 0, 100)
+	t.Logf("size=%d,len=%d,cap=%d\n", unsafe.Sizeof(x), len(x), cap(x))
 }

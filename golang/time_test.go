@@ -1,14 +1,15 @@
-package main
+package mytest
 
 import (
 	"fmt"
+	"testing"
 	"time"
 )
 
-func timeFormat() {
-	t, _ := time.Parse(time.UnixDate, "Sat Mar  7 11:06:39 PST 2015")
+func testFormat(t *testing.T) {
+	dt, _ := time.Parse(time.UnixDate, "Sat Mar  7 11:06:39 PST 2015")
 	do := func(name, layout, want string) {
-		got := t.Format(layout)
+		got := dt.Format(layout)
 		if want != got {
 			fmt.Printf("error: for %q got %q; expected %q\n", layout, got, want)
 			return
@@ -17,15 +18,15 @@ func timeFormat() {
 	}
 
 	// time.Time's Stringer method is useful without any format.
-	fmt.Println("default format:", t)
+	t.Log("default format:", dt)
 
 	// Predefined constants in the package implement common layouts.
-	fmt.Println("Unix format:", t.Format(time.UnixDate))
+	t.Log("Unix format:", dt.Format(time.UnixDate))
 
 	// The time zone attached to the time value affects its output.
-	fmt.Println("Same, in UTC:", t.UTC().Format(time.UnixDate))
+	t.Log("Same, in UTC:", dt.UTC().Format(time.UnixDate))
 	// Print a header in our output.
-	fmt.Printf("\nFormats:\n\n")
+	t.Logf("\nFormats:\n\n")
 
 	// A simple starter example.
 	do("Basic", "Mon Jan 2 15:04:05 MST 2006", "Sat Mar 7 11:06:39 PST 2015")
