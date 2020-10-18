@@ -1,4 +1,4 @@
-package main
+package mytest
 
 import (
 	"fmt"
@@ -17,4 +17,3 @@ func TestSplit(t *testing.T) {
 	}
 
 }
-

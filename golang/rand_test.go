@@ -1,7 +1,6 @@
-package rand_test
+package mytest
 
 import (
-	"fmt"
 	"math/rand"
 	"strings"
 	"testing"
@@ -19,28 +18,28 @@ type RandSuit struct{}
 var _ = check.Suite(&RandSuit{})
 
 func (s *RandSuit) TestInt(c *check.C) {
-	fmt.Println(rand.Int())
-	fmt.Println(rand.Int())
-	fmt.Println(rand.Int())
+	c.Log(rand.Int())
+	c.Log(rand.Int())
+	c.Log(rand.Int())
 }
 
 func (s *RandSuit) TestIntn(c *check.C) {
-	fmt.Println(rand.Intn(10))
-	fmt.Println(rand.Intn(10))
-	fmt.Println(rand.Intn(10))
+	c.Log(rand.Intn(10))
+	c.Log(rand.Intn(10))
+	c.Log(rand.Intn(10))
 }
 
 func (s *RandSuit) TestPerm(c *check.C) {
 	arr := rand.Perm(5)
 	c.Assert(arr, check.HasLen, 5)
-	fmt.Println(arr)
+	c.Log(arr)
 }
 
 func (s *RandSuit) TestSeed(c *check.C) {
 	rand.Seed(time.Now().UTC().UnixNano())
-	fmt.Println(rand.Intn(10))
-	fmt.Println(rand.Intn(10))
-	fmt.Println(rand.Intn(10))
+	c.Log(rand.Intn(10))
+	c.Log(rand.Intn(10))
+	c.Log(rand.Intn(10))
 }
 
 func (s *RandSuit) TestShuffle(c *check.C) {
@@ -49,5 +48,5 @@ func (s *RandSuit) TestShuffle(c *check.C) {
 	rand.Shuffle(len(words), func(i, j int) {
 		words[i], words[j] = words[j], words[i]
 	})
-	fmt.Println(words)
+	c.Log(words)
 }
