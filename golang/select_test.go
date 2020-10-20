@@ -1,53 +1,38 @@
 package mytest
 
 import (
-	"sync"
 	"testing"
 	"time"
 )
 
-//测试 select 使用
-func TestSelect(t *testing.T) {
-	var wg sync.WaitGroup
-	ch1 := func() chan string {
-		wg.Add(1)
-		ch := make(chan string)
-		go func() {
-			// defer close(ch)
-			defer wg.Done()
-			time.Sleep(time.Second)
-			ch <- "function 1 wake up"
-		}()
-		return ch
-	}()
-	ch2 := func() chan string {
-		wg.Add(1)
-		ch := make(chan string)
-		go func() {
-			// defer close(ch)
-			defer wg.Done()
-			time.Sleep(2 * time.Second)
-			ch <- "function 2 wake up"
-
-		}()
-		return ch
-	}()
-
-	quit := false
-
-	for !quit {
+func prodAndConuser(t *testing.T, chProducer, chConsumer chan int) {
+	t.Log("start")
+	var v int
+	for {
 		select {
-		case v, ok := <-ch1:
-			if ok {
-				t.Log(v)
-			}
+		case v = <-chProducer:
+			t.Logf("produce: v=%d", v)
+			v++
 
-		case v, ok := <-ch2:
-			if ok {
-				t.Log(v)
-				quit = true
-			}
+		// case chConsumer <- v:
+		// 	t.Logf("consumer: v=%d", v)
+		default:
+			t.Log("没有 channel 可以执行")
+			time.Sleep(time.Millisecond * 500)
 		}
 	}
+}
+
+//测试 select 使用
+func TestSelect(t *testing.T) {
+	var p, v chan int
+	go prodAndConuser(t, p, v)
+	t.Log("stage 1")
+	// go func() {
+	// 	t.Logf("handle")
+	// 	<-v
+	// }()
+	p <- 3
+	time.Sleep(time.Second)
 	t.Log("main end")
 }
