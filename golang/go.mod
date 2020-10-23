@@ -3,6 +3,7 @@ module golang_test
 go 1.14
 
 require (
+	github.com/antlabs/deepcopy v0.0.3
 	github.com/astaxie/beego v1.12.1
 	github.com/dgraph-io/ristretto v0.0.2
 	github.com/go-eden/slf4go v1.0.5

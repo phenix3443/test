@@ -1,38 +1,49 @@
 package mytest
 
 import (
+	"sync"
 	"testing"
-	"time"
 )
-
-func prodAndConuser(t *testing.T, chProducer, chConsumer chan int) {
-	t.Log("start")
-	var v int
-	for {
-		select {
-		case v = <-chProducer:
-			t.Logf("produce: v=%d", v)
-			v++
-
-		// case chConsumer <- v:
-		// 	t.Logf("consumer: v=%d", v)
-		default:
-			t.Log("没有 channel 可以执行")
-			time.Sleep(time.Millisecond * 500)
-		}
-	}
-}
 
 //测试 select 使用
 func TestSelect(t *testing.T) {
-	var p, v chan int
-	go prodAndConuser(t, p, v)
-	t.Log("stage 1")
-	// go func() {
-	// 	t.Logf("handle")
-	// 	<-v
-	// }()
-	p <- 3
-	time.Sleep(time.Second)
-	t.Log("main end")
+	var wg sync.WaitGroup
+
+	wg.Add(1)
+	in := func() chan int {
+		in := make(chan int, 10)
+		go func() {
+			defer wg.Done()
+			defer close(in) // 关闭输入
+			for i := 0; i < 3; i++ {
+				in <- i
+			}
+		}()
+		return in
+	}()
+
+	wg.Add(1)
+	out := func() chan int {
+		out := make(chan int, 10)
+		go func() {
+			defer wg.Done()
+			for c := range out {
+				t.Logf("result: %d", c)
+			}
+		}()
+		return out
+	}()
+
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		defer close(out)
+		for v := range in {
+			t.Logf("in: v=%d, handling", v)
+			v++
+			out <- v
+		}
+	}()
+
+	wg.Wait()
 }
